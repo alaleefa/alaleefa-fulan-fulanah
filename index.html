@@ -1,263 +1,668 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="id" dir="ltr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>دعوة يسرى و ياسر</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-<style>
-/* 🌟 الخط */
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Amiri', serif; }
-body { background:#1e1f0d; color:#fff; overflow-x:hidden; }
-img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; pointer-events: auto; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Fulan & Fulanah</title>
 
-#cover { position: fixed; top:0; left:0; width:100%; height:100%; background: url('cover-image.jpg') center center / cover no-repeat; display:flex; flex-direction: column; justify-content: center; align-items: center; z-index:1000; }
-#cover img#enterBtn { width:150px; cursor:pointer; transition: transform 0.3s; }
-#cover img#enterBtn:hover { transform: scale(1.05); }
-#guestName { margin-top:20px; font-size:20px; color:#fff; }
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
-#nav { position: fixed; bottom:10px; left:50%; transform:translateX(-50%); display:none; gap:5px; z-index:1000; }
-#nav img { width:25px; height:25px; cursor: pointer; border-radius: 8px; border: none; }
-#pages { display:none; scroll-snap-type: y mandatory; }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Amiri', serif;
+        }
 
-.section { min-height:100vh; display:flex; justify-content:center; align-items:center; flex-direction: column; margin:0; padding:0; position:relative; scroll-snap-align: start; overflow: hidden; }
-.page-video { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; object-fit: cover; z-index: -1; }
+        body {
+            background: #1e1f0d;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-#commentsSection { width: 100%; display: flex; min-height: 100vh; flex-direction: column; justify-content: center; align-items: center; padding: 20px 0 80px 0; position: relative; }
+        img {
+            -webkit-user-drag: none;
+            user-drag: none;
+            -webkit-touch-callout: none;
+            pointer-events: auto;
+            user-select: none;
+        }
 
-#page2 img.siteImage { margin-top:630px; max-width:50%; cursor:pointer; z-index: 10; }
+        #cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('cover-image.jpg') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-#countdown { display:flex; gap:10px; justify-content:center; position:absolute; top:50%; left:50%; transform:translateX(-50%); z-index:10; }
-.countBox { width:50px; height:50px; display:flex; flex-direction:column; justify-content:center; align-items:center; border-radius:6px; background: rgba(255,255,255,0.2); color:#9d8d69; font-size:16px; }
-.countBox small { font-size:12px; }
+        #enterBtn {
+            width: 150px;
+            cursor: pointer;
+            transition: .3s;
+        }
 
-#commentsWrapper { width:90%; max-width:500px; display:flex; flex-direction:column; gap:8px; padding:10px; border-radius:10px; background:#fff; color:#000; max-height: 60vh; overflow-y:auto; margin-top:150px; margin-bottom:150px; }
+        #enterBtn:hover {
+            transform: scale(1.05);
+        }
 
-#replyCount { color:#9d8d69; font-weight:bold; margin-bottom:5px; }
-.formLabel { margin:5px 0 0; font-size:14px; color:#9d8d69; }
-input, textarea { width:100%; padding:8px; border-radius:5px; border:1px solid #9d8d69; font-size:14px; margin-bottom:5px; }
-textarea#cMsg { min-height:80px; resize:none; }
-.statusContainer { display:flex; gap:10px; margin-bottom:5px; }
-.statusOption { cursor:pointer; flex:1; text-align:center; padding:8px; border:1px solid #9d8d69; border-radius:5px; color:#9d8d69; font-weight:bold; }
-.statusSelected { background-color:#9d8d69; color:#000; }
-button { padding:6px 12px; border:none; border-radius:5px; cursor:pointer; background:#9d8d69; color:#000; font-weight:bold; margin-top:5px; font-size:14px; }
-#prev, #next { width:80px; margin:10px 5px; font-size:14px; display:inline-block; }
-.commentItem { border:1px solid #9d8d69; border-radius:8px; padding:8px; background:#fff; color:#000; font-size:14px; position:relative; margin-bottom:8px; }
-.timeInfo { font-size:12px; color:#999; margin-top:3px; }
+        #guestName {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #fff;
+        }
 
-#pageFooter { width: 100%; position: absolute; bottom: 50px; left: 0; padding: 5px 0; text-align: center; font-size: 15px; background: rgba(0, 0, 0, 0.4); color: #aaa; z-index: 100; }
-#pageFooter a { color: #9d8d69; text-decoration: none; font-weight: bold; }
+        #nav {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 5px;
+            z-index: 1000;
+        }
 
-</style>
+        #nav img {
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            border-radius: 8px;
+            border: none;
+        }
+
+        #pages {
+            display: none;
+            scroll-snap-type: y mandatory;
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            scroll-snap-align: start;
+            overflow: hidden;
+        }
+
+        .page-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        #countdown {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .countBox {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .countBox span {
+            font-size: 18px;
+            color: #9d8d69;
+        }
+
+        .countBox small {
+            font-size: 9px;
+            margin-top: 1px;
+            color: #9d8d69;
+        }
+
+        .gallery-container {
+            width: 90%;
+            max-width: 400px;
+            overflow-x: scroll;
+            white-space: nowrap;
+            padding: 10px 0;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            margin-top: 50px;
+        }
+
+        .gallery-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-grid {
+            display: flex;
+            gap: 10px;
+            padding: 0 10px;
+        }
+
+        .gallery-item {
+            min-width: 140px;
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #9d8d69;
+            flex-shrink: 0;
+            scroll-snap-align: center;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .section#page5 {
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .copy-box-container {
+            position: absolute;
+            left: 17%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+            top: 53%;
+            transform: translateY(-50%);
+        }
+
+        .copy-box {
+            width: 55px;
+            height: 55px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid #9d8d69;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .copy-box .copy-text {
+            font-size: 11px;
+            font-weight: bold;
+            color: #9d8d69;
+        }
+
+        .copy-box:active {
+            transform: scale(0.95);
+        }
+
+        .section#page7 {
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 150px;
+            padding-bottom: 70px;
+        }
+
+        #commentsWrapper {
+            width: 90%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #fff;
+            color: #000;
+            max-height: 60vh;
+            overflow-y: auto;
+            z-index: 10;
+            text-align: left;
+        }
+
+        .formLabel {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #9d8d69;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #9d8d69;
+            font-size: 14px;
+            margin-bottom: 5px;
+            font-family: 'Amiri', serif;
+            direction: ltr;
+            text-align: left;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: none;
+        }
+
+        button {
+            padding: 7px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #9d8d69;
+            color: #000;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .commentItem {
+            border: 1px solid #9d8d69;
+            border-radius: 8px;
+            padding: 8px;
+            background: #fff;
+            color: #000;
+            font-size: 14px;
+            margin-bottom: 8px;
+            position: relative;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .timeInfo {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .replyBtn {
+            background: #9d8d69;
+            color: #fff;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 3px 8px;
+            border-radius: 5px;
+            border: none;
+            font-weight: normal;
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .reply-form {
+            padding-top: 5px;
+            border-top: 1px dashed #eee;
+            margin-top: 5px;
+            direction: ltr;
+            display: none;
+        }
+
+        .reply-item {
+            border-top: 1px solid #9d8d69;
+            padding: 5px 0 0 0;
+            margin-top: 5px;
+            font-size: 13px;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .reply-item .reply-text {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .reply-item .timeInfo {
+            font-size: 10px;
+            color: #777;
+            text-align: left;
+            margin-top: 0;
+        }
+
+        #pageFooter {
+            width: 100%;
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            padding: 5px 0;
+            text-align: center;
+            font-size: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            color: #aaa;
+            z-index: 100;
+        }
+
+        #pageFooter a {
+            color: #9d8d69;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
 
-<div id="cover">
-  <img id="enterBtn" src="enter.png" alt="اضغط للدخول">
-  <div id="guestName">اسم المدعو/ة: علياء</div>
-</div>
-
-<div id="nav">
-  <img src="page1-icon.png" data-go="0">
-  <img src="page2-icon.png" data-go="1">
-  <img src="page3-icon.png" data-go="2">
-  <img src="page4-icon.png" data-go="3">
-  <img src="page5-icon.png" data-go="4">
-</div>
-
-<div id="pages">
-
-  <div class="section">
-    <video class="page-video" src="page1.mp4" muted loop autoplay playsinline></video>
-  </div>
-
-  <div class="section" id="page2">
-    <video class="page-video" src="page2.mp4" muted loop autoplay playsinline></video>
-    <img class="siteImage" src="site.png" alt="موقع المناسبة">
-  </div>
-
-  <div class="section" id="page3">
-    <video class="page-video" src="page3.mp4" muted loop autoplay playsinline></video>
-    <div id="countdown">
-      <div class="countBox"><span id="d">0</span><small>يوم</small></div>
-      <div class="countBox"><span id="h">0</span><small>ساعة</small></div>
-      <div class="countBox"><span id="m">0</span><small>دقيقة</small></div>
-      <div class="countBox"><span id="s">0</span><small>ثانية</small></div>
-    </div>
-  </div>
-
-  <div class="section">
-    <video class="page-video" src="page4.mp4" muted loop autoplay playsinline></video>
-  </div>
-
-  <div class="section" id="commentsSection">
-    <video class="page-video" src="page5.mp4" muted loop autoplay playsinline></video>
-
-    <div id="commentsWrapper">
-      <div id="replyCount">عدد الردود: 0</div>
-      <div class="formLabel">الاسم</div>
-      <input type="text" id="cName" placeholder="مثال: نورة">
-      <div class="formLabel">الحالة</div>
-      <div class="statusContainer">
-        <div class="statusOption" data-status="يعتذر">يعتذر</div>
-        <div class="statusOption" data-status="حاضر">حاضر</div>
-      </div>
-      <div class="formLabel">التعليق (اختياري)</div>
-      <textarea id="cMsg" placeholder="مثال: بارك الله لكما…"></textarea>
-      <button id="sendComment">إرسال</button>
-      <div id="commentsList"></div>
-      <div style="text-align:center;"><button id="prev">قبل</button><button id="next">بعد</button></div>
+    <div id="cover">
+        <img id="enterBtn" src="enter.png" alt="Tombol Masuk">
+        <div id="guestName">Nama Tamu: Alia</div>
     </div>
 
-    <div id="pageFooter">
-        Created with love by 
-        <a href="https://www.instagram.com/alaleefa_?igsh=MW45Z21oM2x0YndjcQ==" target="_blank">@alaleefa_</a> / 
-        <a href="https://api.whatsapp.com/send/?phone=%2B6281287575722&text&type=phone_number&app_absent=0&wame_ctl=1">
-            081287575722
-        </a>
+    <div id="nav">
+        <img src="icon1.png" data-go="0" alt="Ikon 1">
+        <img src="icon2.png" data-go="1" alt="Ikon 2">
+        <img src="icon3.png" data-go="2" alt="Ikon 3">
+        <img src="icon4.png" data-go="3" alt="Ikon 4">
+        <img src="icon5.png" data-go="4" alt="Ikon 5">
+        <img src="icon6.png" data-go="5" alt="Ikon 6">
+        <img src="icon7.png" data-go="6" alt="Ikon 7">
     </div>
 
-  </div>
+    <div id="pages">
 
-</div>
+        <div class="section">
+            <video class="page-video" src="page1.mp4" muted loop autoplay playsinline></video>
+        </div>
 
-<audio id="music" src="music.mp3" loop></audio>
+        <div class="section" id="page2">
+            <video class="page-video" src="page2.mp4" muted loop autoplay playsinline></video>
+            <img class="siteImage" src="site.png" style="margin-top:650px;max-width:50%;cursor:pointer;"
+                alt="Peta Lokasi">
+        </div>
 
-<script>
-// منع الحفظ على الصور
-document.querySelectorAll('img').forEach(img => {
-    img.oncontextmenu = (e) => { e.preventDefault(); };
-});
+        <div class="section" id="page3">
+            <video class="page-video" src="page3.mp4" muted loop autoplay playsinline></video>
 
-const urlParams = new URLSearchParams(window.location.search);
-const guestName = urlParams.get('guest') || 'علياء';
-document.getElementById('guestName').innerText = `اسم المدعو/ة: ${guestName}`;
+            <div id="countdown">
+                <div class="countBox"><span id="d">0</span><small>Hari</small></div>
+                <div class="countBox"><span id="h">0</span><small>Jam</small></div>
+                <div class="countBox"><span id="m">0</span><small>Menit</small></div>
+                <div class="countBox"><span id="s">0</span><small>Detik</small></div>
+            </div>
+        </div>
 
-let enterBtn = document.getElementById("enterBtn"),
-    pages = document.getElementById("pages"),
-    cover = document.getElementById("cover"),
-    nav = document.getElementById("nav"),
-    music = document.getElementById("music");
+        <div class="section">
+            <video class="page-video" src="page4.mp4" muted loop autoplay playsinline></video>
 
-enterBtn.onclick = () => {
-    cover.style.display = "none";
-    pages.style.display = "block";
-    nav.style.display = "flex";
-    music.play();
+            <div class="gallery-container">
+                <div class="gallery-grid">
+                    <div class="gallery-item"><img src="g1.jpg" alt="Galeri Gambar 1"></div>
+                    <div class="gallery-item"><img src="g2.jpg" alt="Galeri Gambar 2"></div>
+                    <div class="gallery-item"><img src="g3.jpg" alt="Galeri Gambar 3"></div>
+                    <div class="gallery-item"><img src="g4.jpg" alt="Galeri Gambar 4"></div>
+                </div>
+            </div>
+        </div>
 
-    document.querySelectorAll('.page-video').forEach(video => {
-        video.play().catch(error => {});
-    });
+        <div class="section" id="page5">
+            <video class="page-video" src="page5.mp4" muted loop autoplay playsinline></video>
 
-    let countdownDiv = document.getElementById('countdown');
-    let targetDate = new Date("2026-09-07T00:00:00").getTime();
-    setInterval(() => {
-        let now = Date.now(),
-            diff = targetDate - now;
-        if (diff < 0) diff = 0;
-        let d = Math.floor(diff / 86400000),
-            h = Math.floor((diff % 86400000) / 3600000),
-            m = Math.floor((diff % 3600000) / 60000),
-            s = Math.floor((diff % 60000) / 1000);
-        countdownDiv.querySelector('#d').innerText = d;
-        countdownDiv.querySelector('#h').innerText = h;
-        countdownDiv.querySelector('#m').innerText = m;
-        countdownDiv.querySelector('#s').innerText = s;
-    }, 1000);
-};
+            <div class="copy-box-container">
+                <div class="copy-box" data-num="081234567890">
+                    <span class="copy-text">Copy</span>
+                </div>
+                <div class="copy-box" data-num="085711223344">
+                    <span class="copy-text">Copy</span>
+                </div>
+            </div>
+        </div>
 
-document.querySelectorAll('#nav img').forEach(btn => {
-    btn.onclick = () => {
-        document.querySelectorAll('.section')[btn.dataset.go].scrollIntoView({behavior:'smooth'});
-    };
-});
+        <div class="section">
+            <video class="page-video" src="page6.mp4" muted loop autoplay playsinline></video>
+        </div>
 
-document.querySelectorAll('.siteImage').forEach(img => {
-    img.onclick = () => { window.open('https://maps.app.goo.gl/fipYv9RUQYJmwTDq6','_blank'); };
-});
+        <div class="section" id="page7">
+            <video class="page-video" src="page7.mp4" muted loop autoplay playsinline></video>
 
-// =================== نظام التعليقات بواسطة Google Sheet ===================
-const API_URL = "https://script.google.com/macros/s/AKfycbxusV1iSiwY-F3uXc4qJkop-Tet5_7sohL-NRwBbu8OlEfrYCAl2JuSELwmVUGXq9y3/exec";
+            <div id="commentsWrapper">
+                <div class="formLabel">Nama</div>
+                <input type="text" id="cName" placeholder="Contoh: Nurul">
 
-let statusSelected = "";
-let comments = [];
-let pageIndex = 0;
+                <div class="formLabel">Status Kehadiran</div>
+                <select id="cStatus" style="padding:8px;border-radius:5px;border:1px solid #9d8d69;">
+                    <option value="">Pilih Status</option>
+                    <option value="Hadir">Hadir</option>
+                    <option value="Berhalangan">Berhalangan</option>
+                </select>
 
-document.querySelectorAll('.statusOption').forEach(op => {
-    op.onclick = () => {
-        document.querySelectorAll('.statusOption').forEach(o => o.classList.remove('statusSelected'));
-        op.classList.add('statusSelected');
-        statusSelected = op.dataset.status;
-    };
-});
+                <div class="formLabel">Ucapan</div>
+                <textarea id="cMsg" placeholder="Contoh: Semoga bahagia selalu..."></textarea>
 
-async function loadComments() {
-    try {
-        const response = await fetch(API_URL);
-        comments = await response.json();
-        comments.reverse();
-    } catch (e) {
-        comments = [];
-    }
-    renderComments();
-}
+                <button id="sendComment">Kirim</button>
 
-function renderComments() {
-    let list = document.getElementById('commentsList');
-    let replyCount = document.getElementById('replyCount');
-    list.innerHTML = "";
-    replyCount.innerText = `عدد الردود: ${comments.length}`;
+                <div id="commentsList"></div>
+            </div>
 
-    let start = pageIndex * 5;
-    let selected = comments.slice(start, start + 5);
+            <div id="pageFooter">
+                Created with love by <a href="https://www.instagram.com/alaleefa_?igsh=MW45Z21oM2x0YndjcQ=="
+                    target="_blank">@alaleefa_</a>/
+                <a href='https://api.whatsapp.com/send/?phone=%2B6281287575722&text&type=phone_number&app_absent=0&wame_ctl=1'>081287575722</a>
+            </div>
 
-    selected.forEach(c => {
-        let div = document.createElement('div');
-        div.className = 'commentItem';
-        div.innerHTML = `
-            <b>${c.name}</b> (${c.status})<br>${c.msg}<br>
-            <span class="timeInfo">${c.date} - ${c.time}</span>
-        `;
-        list.appendChild(div);
-    });
-}
+        </div>
 
-document.getElementById("sendComment").onclick = async () => {
-    let name = document.getElementById('cName').value.trim();
-    let msg = document.getElementById('cMsg').value.trim();
-    if (!name || !statusSelected) {
-        alert("يرجى إدخال الاسم والحالة قبل التعليق");
-        return;
-    }
-    let data = { name, msg, status: statusSelected };
-    await fetch(API_URL, {
-        method: "POST",
-        body: JSON.stringify(data)
-    });
-    document.getElementById('cName').value = "";
-    document.getElementById('cMsg').value = "";
-    statusSelected = "";
-    document.querySelectorAll('.statusOption').forEach(o => o.classList.remove('statusSelected'));
-    pageIndex = 0;
-    await loadComments();
-};
+    </div>
 
-document.getElementById('prev').onclick = () => {
-    if (pageIndex > 0) {
-        pageIndex--;
+    <audio id="music" src="music.mp3" loop></audio>
+
+    <script>
+        document.querySelectorAll('img').forEach(img => {
+            img.oncontextmenu = e => e.preventDefault();
+        });
+
+        /* Guest Name */
+        const guestName = new URLSearchParams(location.search).get('guest') || 'Tamu';
+        document.getElementById('guestName').innerText = "Nama Tamu: " + guestName;
+
+        /* Music Control (Always play) */
+        enterBtn.onclick = () => {
+            cover.style.display = "none";
+            pages.style.display = "block";
+            nav.style.display = "flex";
+            music.play().catch(e => console.error("Autoplay failed:", e));
+
+            document.querySelectorAll('.page-video').forEach(v => v.play());
+        };
+
+        /* Navigation, Maps, Countdown, Copy Numbers */
+        document.querySelectorAll('#nav img').forEach(btn => {
+            btn.onclick = () => document.querySelectorAll('.section')[btn.dataset.go]
+                .scrollIntoView({
+                    behavior: 'smooth'
+                });
+        });
+
+        document.querySelector('.siteImage').onclick = () => {
+            window.open('https://maps.app.goo.gl/fipYv9RUQYJmwTDq6','_blank');
+        };
+
+        let targetDate = new Date("2026-09-07T00:00:00").getTime();
+        setInterval(() => {
+            let diff = targetDate - Date.now();
+            if (diff < 0) diff = 0;
+            d.innerText = Math.floor(diff / 86400000);
+            h.innerText = Math.floor((diff % 86400000) / 3600000);
+            m.innerText = Math.floor((diff % 3600000) / 60000);
+            s.innerText = Math.floor((diff % 60000) / 1000);
+        }, 1000);
+
+        document.querySelectorAll('.copy-box').forEach(box => {
+            box.onclick = () => {
+                navigator.clipboard.writeText(box.dataset.num);
+                box.style.background = "rgba(157,141,105,0.7)";
+                box.querySelector('.copy-text').innerText = 'Disalin!';
+                setTimeout(() => {
+                    box.style.background = "rgba(255,255,255,0.2)";
+                    box.querySelector('.copy-text').innerText = 'Copy';
+                }, 800);
+            };
+        });
+
+        /* Comments Logic */
+        let comments = JSON.parse(localStorage.getItem('comments') || '[]');
+
+        function saveComments() {
+            localStorage.setItem('comments', JSON.stringify(comments));
+        }
+
+        function assignIds() {
+            let tempId = Date.now();
+            comments.forEach(c => {
+                if (!c.id) {
+                    c.id = (tempId++).toString();
+                }
+            });
+            saveComments();
+        }
+        assignIds();
+
+        function renderComments() {
+            commentsList.innerHTML = "";
+            const mainComments = comments.filter(c => !c.parentId);
+
+            mainComments.forEach((mainC) => {
+                let mainDiv = document.createElement('div');
+                mainDiv.className = "commentItem";
+                mainDiv.id = `comment-${mainC.id}`;
+
+                let mainContent = `
+                    <div style="direction: ltr; text-align: left;">
+                        <b>${mainC.name}</b> (${mainC.status})<br>
+                        ${mainC.msg}
+                        <div class="timeInfo">
+                            <button class="replyBtn" data-id="${mainC.id}" data-name="${mainC.name}">Balas</button>
+                            <span class="comment-time">${mainC.time}</span>
+                        </div>
+                    </div>
+                    <div class="reply-list" id="replies-for-${mainC.id}"></div>
+                    <div class="reply-form" id="replyForm-${mainC.id}">
+                        <div class="formLabel">Nama</div>
+                        <input type="text" id="rName-${mainC.id}" placeholder="Nama Anda">
+                        <div class="formLabel">Komen</div>
+                        <textarea id="rMsg-${mainC.id}" placeholder="Balasan untuk ${mainC.name}..."></textarea>
+                        <button class="sendReplyBtn" data-parent-id="${mainC.id}" data-parent-name="${mainC.name}">Kirim</button>
+                    </div>
+                `;
+                mainDiv.innerHTML = mainContent;
+                commentsList.appendChild(mainDiv);
+
+                const replies = comments.filter(r => r.parentId === mainC.id).sort((a, b) => new Date(a.time) - new Date(b.time));
+                const replyList = mainDiv.querySelector(`#replies-for-${mainC.id}`);
+
+                replies.forEach(r => {
+                    let replyDiv = document.createElement('div');
+                    replyDiv.className = "reply-item";
+
+                    replyDiv.innerHTML = `
+                        <b>${r.name}:</b>
+                        <span class="reply-text">${r.msg}</span>
+                        <div class="timeInfo">${r.time}</div>
+                    `;
+                    replyList.appendChild(replyDiv);
+                });
+            });
+
+            // Attach event listeners for the new elements
+            document.querySelectorAll('.replyBtn').forEach(btn => {
+                btn.onclick = (e) => {
+                    const id = e.target.dataset.id;
+                    const replyForm = document.getElementById(`replyForm-${id}`);
+
+                    document.querySelectorAll('.reply-form').forEach(form => {
+                        if (form.id !== replyForm.id) {
+                            form.style.display = 'none';
+                        }
+                    });
+
+                    replyForm.style.display = replyForm.style.display === 'block' ? 'none' : 'block';
+                };
+            });
+
+            document.querySelectorAll('.sendReplyBtn').forEach(btn => {
+                btn.onclick = (e) => {
+                    const parentId = e.target.dataset.parentId;
+                    const parentName = e.target.dataset.parentName;
+                    const nameInput = document.getElementById(`rName-${parentId}`);
+                    const msgInput = document.getElementById(`rMsg-${parentId}`);
+
+                    let name = nameInput.value.trim();
+                    let msg = msgInput.value.trim();
+
+                    if (!name || !msg) {
+                        alert("Harap masukkan Nama dan Komen untuk membalas.");
+                        return;
+                    }
+
+                    let time = new Date().toLocaleString("id-ID");
+                    let newCommentId = Date.now().toString();
+
+                    comments.push({
+                        id: newCommentId,
+                        name,
+                        msg,
+                        status: 'Balasan',
+                        time,
+                        parentId: parentId,
+                        replyToName: parentName
+                    });
+                    saveComments();
+
+                    nameInput.value = "";
+                    msgInput.value = "";
+                    document.getElementById(`replyForm-${parentId}`).style.display = 'none';
+                    renderComments();
+                };
+            });
+        }
+
+        // Main comment form submission
+        sendComment.onclick = () => {
+            let name = cName.value.trim();
+            let msg = cMsg.value.trim();
+            let st = cStatus.value;
+
+            if (!name || !st) {
+                alert("Harap masukkan nama وสถานة الحضور.");
+                return;
+            }
+
+            let time = new Date().toLocaleString("id-ID");
+            let newCommentId = Date.now().toString();
+
+            comments.unshift({
+                id: newCommentId,
+                name,
+                msg,
+                status: st,
+                time
+            });
+            saveComments();
+
+            cName.value = "";
+            cMsg.value = "";
+            cStatus.value = "";
+            renderComments();
+        };
         renderComments();
-    }
-};
-document.getElementById('next').onclick = () => {
-    if ((pageIndex + 1) * 5 < comments.length) {
-        pageIndex++;
-        renderComments();
-    }
-};
+    </script>
 
-// تحميل أولي
-loadComments();
-
-</script>
 </body>
+
 </html>
