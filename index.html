@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="id" dir="ltr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Fulan & Fulanah</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
@@ -242,7 +240,8 @@
         }
 
         input,
-        textarea {
+        textarea,
+        select { /* Tambahkan select */
             width: 100%;
             padding: 8px;
             border-radius: 5px;
@@ -252,6 +251,8 @@
             font-family: 'Amiri', serif;
             direction: ltr;
             text-align: left;
+            background: #fff; /* Pastikan background putih */
+            color: #000; /* Pastikan teks hitam */
         }
 
         textarea {
@@ -268,6 +269,17 @@
             color: #000;
             font-weight: bold;
             margin-top: 5px;
+            transition: background 0.3s;
+        }
+        
+        button:disabled {
+            background: #ccc !important;
+            color: #555 !important;
+            cursor: not-allowed;
+        }
+
+        #sendComment {
+             margin-bottom: 15px;
         }
 
         .commentItem {
@@ -356,15 +368,13 @@
             font-weight: bold;
         }
     </style>
+
 </head>
-
 <body>
-
     <div id="cover">
         <img id="enterBtn" src="enter.png" alt="Tombol Masuk">
         <div id="guestName">Nama Tamu: Alia</div>
     </div>
-
     <div id="nav">
         <img src="icon1.png" data-go="0" alt="Ikon 1">
         <img src="icon2.png" data-go="1" alt="Ikon 2">
@@ -374,7 +384,6 @@
         <img src="icon6.png" data-go="5" alt="Ikon 6">
         <img src="icon7.png" data-go="6" alt="Ikon 7">
     </div>
-
     <div id="pages">
 
         <div class="section">
@@ -436,7 +445,7 @@
                 <input type="text" id="cName" placeholder="Contoh: Nurul">
 
                 <div class="formLabel">Status Kehadiran</div>
-                <select id="cStatus" style="padding:8px;border-radius:5px;border:1px solid #9d8d69;">
+                <select id="cStatus">
                     <option value="">Pilih Status</option>
                     <option value="Hadir">Hadir</option>
                     <option value="Berhalangan">Berhalangan</option>
@@ -446,13 +455,25 @@
                 <textarea id="cMsg" placeholder="Contoh: Semoga bahagia selalu..."></textarea>
 
                 <button id="sendComment">Kirim</button>
+                
+                <div id="loadingStatus" style="color:#000; margin-top:10px; font-weight:bold; display:none;">
+                    Memuat komentar...
+                </div>
 
+                <div id="paginationControls" style="display:flex; justify-content:space-between; margin-top:10px; gap:10px;">
+                    <button id="prevBtn" style="flex:1;">
+                        < Sebelumnya
+                    </button>
+                    <button id="nextBtn" style="flex:1;">
+                        Berikutnya >
+                    </button>
+                </div>
                 <div id="commentsList"></div>
             </div>
 
             <div id="pageFooter">
                 Created with love by <a href="https://www.instagram.com/alaleefa_?igsh=MW45Z21oM2x0YndjcQ=="
-                    target="_blank">@alaleefa_</a>/
+                    target="blank">@alaleefa_</a>/
                 <a href='https://api.whatsapp.com/send/?phone=%2B6281287575722&text&type=phone_number&app_absent=0&wame_ctl=1'>081287575722</a>
             </div>
 
@@ -463,12 +484,20 @@
     <audio id="music" src="music.mp3" loop></audio>
 
     <script>
+        // 🔴🔴🔴 PENTING: GANTI DENGAN URL APPS SCRIPT ANDA 🔴🔴🔴
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzKbZbYgp1pXF5LTbNFXKOnAEIDW2n5xOI0yVhcbmdpCazmqCqXNWjL5Ao3im3JVy_wVQ/exec";
+        // 🔴🔴🔴 PASTIKAN ANDA MENGGANTI INI 🔴🔴🔴
+
+        // 🟢 KONSTANTA PAGINASI BARU 🟢
+        const COMMENTS_PER_PAGE = 5;
+        let currentPage = 1;
+
         document.querySelectorAll('img').forEach(img => {
             img.oncontextmenu = e => e.preventDefault();
         });
 
         /* Guest Name */
-        const guestName = new URLSearchParams(location.search).get('guest') || 'Tamu';
+        const guestName = new URLSearchParams(location.search).get('guest') || 'Sara';
         document.getElementById('guestName').innerText = "Nama Tamu: " + guestName;
 
         /* Music Control (Always play) */
@@ -490,6 +519,7 @@
         });
 
         document.querySelector('.siteImage').onclick = () => {
+            // Ganti URL Google Maps ini dengan lokasi acara Anda yang sebenarnya
             window.open('https://maps.app.goo.gl/fipYv9RUQYJmwTDq6','_blank');
         };
 
@@ -515,33 +545,154 @@
             };
         });
 
-        /* Comments Logic */
-        let comments = JSON.parse(localStorage.getItem('comments') || '[]');
+        // =======================================================================
+        // 🚀 LOGIKA KOMENTAR DENGAN PAGINASI 🚀
+        // =======================================================================
+        let allComments = [];
+        const commentsList = document.getElementById('commentsList');
+        const loadingStatus = document.getElementById('loadingStatus');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
 
-        function saveComments() {
-            localStorage.setItem('comments', JSON.stringify(comments));
-        }
 
-        function assignIds() {
-            let tempId = Date.now();
-            comments.forEach(c => {
-                if (!c.id) {
-                    c.id = (tempId++).toString();
+        /**
+         * 1. Mendapatkan Komentar dari Google Sheet (Pengganti localStorage.getItem)
+         */
+        async function getCommentsFromSheet() {
+            loadingStatus.style.display = 'block';
+            const url = `${APPS_SCRIPT_URL}?action=getComments`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Kesalahan HTTP! status: ${response.status}`);
                 }
-            });
-            saveComments();
+                
+                let commentsData = await response.json();
+                
+                // Mengganti field replyTo dari Apps Script (yang berisi id parent)
+                commentsData = commentsData.map(c => ({
+                    id: c.id,
+                    name: c.name,
+                    status: c.status,
+                    msg: c.comment,
+                    time: c.date,
+                    parentId: c.replyTo || null,
+                    replyToName: c.replyTo || null
+                }));
+                
+                allComments = commentsData;
+                
+            } catch (error) {
+                console.error("Gagal mengambil komentar:", error);
+                alert("Gagal memuat komentar. Cek koneksi atau Apps Script URL Anda.");
+                allComments = [];
+            } finally {
+                loadingStatus.style.display = 'none';
+            }
         }
-        assignIds();
 
+        /**
+         * 2. Menambahkan Komentar/Balasan ke Google Sheet
+         */
+        async function addCommentToSheet(data) {
+            sendComment.disabled = true;
+            prevBtn.disabled = true;
+            nextBtn.disabled = true;
+            
+            const postData = {
+                action: 'addComment',
+                name: data.name,
+                status: data.status,
+                comment: data.msg,
+                replyTo: data.parentId || ""
+            };
+
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(postData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Kesalahan HTTP! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.result === "success") {
+                    // Setelah sukses, muat ulang data dari server
+                    await initComments();
+                    
+                    // Jika ini adalah komentar utama, pindah ke halaman 1 agar komentar baru terlihat
+                    if (!data.parentId) {
+                        currentPage = 1;
+                    }
+                } else {
+                    alert("Gagal menyimpan komentar: " + (result.message || "Kesalahan tak terduga."));
+                }
+
+            } catch (error) {
+                console.error("Kesalahan saat menambahkan komentar:", error);
+                alert("Gagal mengirim komentar. Cek Apps Script URL.");
+            } finally {
+                sendComment.disabled = false;
+                // Tombol paginasi akan diaktifkan/dinonaktifkan di renderComments()
+            }
+        }
+
+        /**
+         * 3. Fungsi Utama Rendering Komentar dengan Paginasi
+         */
         function renderComments() {
             commentsList.innerHTML = "";
-            const mainComments = comments.filter(c => !c.parentId);
+            
+            // Filter komentar utama dan urutkan (terbaru di atas)
+            const mainComments = allComments
+                .filter(c => !c.parentId || c.parentId === 'null' || c.parentId === '')
+                .sort((a, b) => new Date(b.time) - new Date(a.time));
 
-            mainComments.forEach((mainC) => {
+            const totalMainComments = mainComments.length;
+            const totalPages = Math.ceil(totalMainComments / COMMENTS_PER_PAGE);
+
+            // Hitung indeks untuk halaman saat ini
+            const startIndex = (currentPage - 1) * COMMENTS_PER_PAGE;
+            const endIndex = startIndex + COMMENTS_PER_PAGE;
+
+            // Ambil komentar untuk halaman saat ini
+            const commentsToDisplay = mainComments.slice(startIndex, endIndex);
+
+            // --- Kontrol Paginasi ---
+            if (totalMainComments > COMMENTS_PER_PAGE) {
+                prevBtn.style.display = 'block';
+                nextBtn.style.display = 'block';
+                
+                // Nonaktifkan tombol 'Sebelumnya' di halaman pertama
+                prevBtn.disabled = (currentPage === 1);
+                
+                // Nonaktifkan tombol 'Berikutnya' di halaman terakhir
+                nextBtn.disabled = (currentPage >= totalPages);
+
+            } else {
+                // Sembunyikan jika total komentar <= COMMENTS_PER_PAGE
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            }
+
+            // --- Render Komentar ---
+            commentsToDisplay.forEach((mainC) => {
                 let mainDiv = document.createElement('div');
                 mainDiv.className = "commentItem";
                 mainDiv.id = `comment-${mainC.id}`;
 
+                const replies = allComments
+                    .filter(r => r.parentId === mainC.id)
+                    .sort((a, b) => new Date(a.time) - new Date(b.time));
+                
                 let mainContent = `
                     <div style="direction: ltr; text-align: left;">
                         <b>${mainC.name}</b> (${mainC.status})<br>
@@ -551,7 +702,15 @@
                             <span class="comment-time">${mainC.time}</span>
                         </div>
                     </div>
-                    <div class="reply-list" id="replies-for-${mainC.id}"></div>
+                    <div class="reply-list" id="replies-for-${mainC.id}">
+                        ${replies.map(r => `
+                            <div class="reply-item">
+                                <b>${r.name}:</b>
+                                <span class="reply-text">${r.msg}</span>
+                                <div class="timeInfo">${r.time}</div>
+                            </div>
+                        `).join('')}
+                    </div>
                     <div class="reply-form" id="replyForm-${mainC.id}">
                         <div class="formLabel">Nama</div>
                         <input type="text" id="rName-${mainC.id}" placeholder="Nama Anda">
@@ -562,41 +721,37 @@
                 `;
                 mainDiv.innerHTML = mainContent;
                 commentsList.appendChild(mainDiv);
-
-                const replies = comments.filter(r => r.parentId === mainC.id).sort((a, b) => new Date(a.time) - new Date(b.time));
-                const replyList = mainDiv.querySelector(`#replies-for-${mainC.id}`);
-
-                replies.forEach(r => {
-                    let replyDiv = document.createElement('div');
-                    replyDiv.className = "reply-item";
-
-                    replyDiv.innerHTML = `
-                        <b>${r.name}:</b>
-                        <span class="reply-text">${r.msg}</span>
-                        <div class="timeInfo">${r.time}</div>
-                    `;
-                    replyList.appendChild(replyDiv);
-                });
             });
 
-            // Attach event listeners for the new elements
+            // Pasang kembali event listeners untuk elemen yang baru dirender
+            attachEventListeners();
+        }
+
+        /**
+         * 4. Memasang Event Listeners
+         */
+        function attachEventListeners() {
+            // Listener untuk tombol "Balas"
             document.querySelectorAll('.replyBtn').forEach(btn => {
                 btn.onclick = (e) => {
                     const id = e.target.dataset.id;
                     const replyForm = document.getElementById(`replyForm-${id}`);
 
+                    // Sembunyikan semua form balasan yang terbuka
                     document.querySelectorAll('.reply-form').forEach(form => {
                         if (form.id !== replyForm.id) {
                             form.style.display = 'none';
                         }
                     });
 
+                    // Toggle form balasan yang diklik
                     replyForm.style.display = replyForm.style.display === 'block' ? 'none' : 'block';
                 };
             });
 
+            // Listener untuk tombol "Kirim Balasan"
             document.querySelectorAll('.sendReplyBtn').forEach(btn => {
-                btn.onclick = (e) => {
+                btn.onclick = async (e) => {
                     const parentId = e.target.dataset.parentId;
                     const parentName = e.target.dataset.parentName;
                     const nameInput = document.getElementById(`rName-${parentId}`);
@@ -610,59 +765,82 @@
                         return;
                     }
 
-                    let time = new Date().toLocaleString("id-ID");
-                    let newCommentId = Date.now().toString();
-
-                    comments.push({
-                        id: newCommentId,
+                    const replyData = {
                         name,
                         msg,
                         status: 'Balasan',
-                        time,
                         parentId: parentId,
-                        replyToName: parentName
-                    });
-                    saveComments();
-
+                    };
+                    
+                    await addCommentToSheet(replyData);
+                    
                     nameInput.value = "";
                     msgInput.value = "";
                     document.getElementById(`replyForm-${parentId}`).style.display = 'none';
-                    renderComments();
                 };
             });
         }
-
-        // Main comment form submission
-        sendComment.onclick = () => {
+        
+        /**
+         * 5. Pengiriman Komentar Utama
+         */
+        sendComment.onclick = async () => {
             let name = cName.value.trim();
             let msg = cMsg.value.trim();
             let st = cStatus.value;
 
             if (!name || !st) {
-                alert("Harap masukkan nama وสถานة الحضور.");
+                alert("Harap masukkan nama dan Status Kehadiran.");
                 return;
             }
 
-            let time = new Date().toLocaleString("id-ID");
-            let newCommentId = Date.now().toString();
-
-            comments.unshift({
-                id: newCommentId,
+            const mainCommentData = {
                 name,
                 msg,
                 status: st,
-                time
-            });
-            saveComments();
-
+                parentId: ""
+            };
+            
+            await addCommentToSheet(mainCommentData);
+            
             cName.value = "";
             cMsg.value = "";
             cStatus.value = "";
-            renderComments();
         };
-        renderComments();
+
+        /** 🟢 LOGIKA NAVIGASI PAGINASI 🟢 */
+        prevBtn.onclick = () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderComments();
+                // Opsional: Gulir ke atas daftar komentar
+                commentsList.closest('#commentsWrapper').scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        };
+
+        nextBtn.onclick = () => {
+            const totalMainComments = allComments.filter(c => !c.parentId || c.parentId === 'null' || c.parentId === '').length;
+            const totalPages = Math.ceil(totalMainComments / COMMENTS_PER_PAGE);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderComments();
+                // Opsional: Gulir ke atas daftar komentar
+                commentsList.closest('#commentsWrapper').scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        };
+        /** ----------------------------- */
+
+        /**
+         * 6. Inisialisasi: Memuat data awal
+         */
+        async function initComments() {
+            await getCommentsFromSheet();
+            renderComments();
+        }
+
+        // Panggil inisialisasi saat halaman dimuat
+        initComments();
     </script>
 
 </body>
-
 </html>
