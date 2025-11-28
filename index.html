@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="id" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Fulan & Fulanah</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* 1. الإعدادات الأساسية وإعادة التعييت */
+        /* ======================================================= */
+        /* 1. الإعدادات الأساسية وإعادة التعييت (Base & Reset)      */
+        /* ======================================================= */
         * {
             margin: 0;
             padding: 0;
@@ -16,7 +19,8 @@
         }
 
         body {
-            background: #1e1f0d; /* خلفية داكنة */
+            background: #1e1f0d;
+            /* خلفية داكنة (Dark Background) */
             color: #fff;
             overflow-x: hidden;
             text-align: left;
@@ -31,14 +35,16 @@
             user-select: none;
         }
 
-        /* 2. شاشة الغلاف (Cover) */
+        /* ======================================================= */
+        /* 2. شاشة الغلاف (Cover Screen)                            */
+        /* ======================================================= */
         #cover {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* يجب تغيير الصورة هنا */
+            /* 🔴 يجب تغيير صورة الخلفية هنا! */
             background: url('cover-image.jpg') center/cover no-repeat;
             display: flex;
             flex-direction: column;
@@ -63,13 +69,16 @@
             color: #fff;
         }
 
-        /* 3. شريط التنقل السفلي (Navigation) */
+        /* ======================================================= */
+        /* 3. شريط التنقل السفلي (Navigation Bar)                   */
+        /* ======================================================= */
         #nav {
             position: fixed;
             bottom: 10px;
             left: 50%;
             transform: translateX(-50%);
             display: none;
+            /* مخفي في البداية */
             gap: 5px;
             z-index: 1000;
             direction: ltr;
@@ -83,9 +92,12 @@
             border: none;
         }
 
-        /* 4. أقسام الصفحات (Sections) */
+        /* ======================================================= */
+        /* 4. أقسام الصفحات (Full-screen Sections)                  */
+        /* ======================================================= */
         #pages {
             display: none;
+            /* مخفي في البداية */
             scroll-snap-type: y mandatory;
         }
 
@@ -110,7 +122,9 @@
             z-index: -1;
         }
 
-        /* 5. العد التنازلي (Countdown) */
+        /* ======================================================= */
+        /* 5. العد التنازلي (Countdown)                             */
+        /* ======================================================= */
         #countdown {
             display: flex;
             gap: 6px;
@@ -141,7 +155,9 @@
             color: #9d8d69;
         }
 
-        /* 6. معرض الصور (Gallery) */
+        /* ======================================================= */
+        /* 6. معرض الصور (Gallery)                                 */
+        /* ======================================================= */
         .gallery-container {
             width: 90%;
             max-width: 400px;
@@ -181,14 +197,18 @@
             object-fit: cover;
         }
 
-        /* 7. صناديق النسخ (الهدية/التحويل البنكي) */
+        /* ======================================================= */
+        /* 7. صناديق النسخ (الهدية/التحويل البنكي)                   */
+        /* ======================================================= */
         .section#page5 {
+            /* تعديل طفيف لضبط موقع الحاويات */
             justify-content: center;
             align-items: center;
             position: relative;
         }
 
         .copy-box-container {
+            /* ملاحظة: هذه الإحداثيات تعتمد على تنسيق الخلفية (page5.mp4) */
             position: absolute;
             left: 17%;
             display: flex;
@@ -222,7 +242,9 @@
             transform: scale(0.95);
         }
 
-        /* 8. التعليقات (النموذج والقائمة) */
+        /* ======================================================= */
+        /* 8. التعليقات والردود (Form & List)                       */
+        /* ======================================================= */
         .section#page7 {
             justify-content: flex-start;
             align-items: center;
@@ -362,7 +384,7 @@
             text-align: left;
             margin-top: 0;
         }
-        
+
         /* إظهار أزرار الترقيم بشكل دائم */
         #paginationControls {
             display: flex;
@@ -371,16 +393,21 @@
             gap: 10px;
         }
 
-        /* 9. تذييل الصفحة (Footer) - تم التعديل لإعادته لشكله الأصلي (صورة 4) */
+        /* ======================================================= */
+        /* 9. تذييل الصفحة (Footer)                                 */
+        /* ======================================================= */
         #pageFooter {
             width: 100%;
-            position: absolute; /* 🛑 العودة إلى absolute لتثبيته في أسفل الشاشة */
-            bottom: 50px;      /* 🛑 وضع مسافة من الأسفل */
+            position: absolute;
+            /* تثبيت في أسفل شاشة القسم */
+            bottom: 50px;
+            /* وضع مسافة من الأسفل لتفادي شريط التنقل */
             left: 0;
-            padding: 10px 0;   /* تقليل padding ليعود شريطاً ضيقاً */
+            padding: 10px 0;
             text-align: center;
             font-size: 13px;
-            background: rgba(0, 0, 0, 0.4); /* خلفية شفافة / داكنة */
+            background: rgba(0, 0, 0, 0.4);
+            /* خلفية شفافة / داكنة */
             color: #aaa;
             z-index: 100;
         }
@@ -393,6 +420,7 @@
     </style>
 
 </head>
+
 <body>
 
     <div id="cover">
@@ -497,7 +525,8 @@
             <div id="pageFooter">
                 Created with love by <a href="https://www.instagram.com/alaleefa_?igsh=MW45Z21oM2x0YndjcQ=="
                     target="blank">@alaleefa_</a>/
-                <a href='https://api.whatsapp.com/send/?phone=%2B6281287575722&text&type=phone_number&app_absent=0&wame_ctl=1'>081287575722</a>
+                <a
+                    href='https://api.whatsapp.com/send/?phone=%2B6281287575722&text&type=phone_number&app_absent=0&wame_ctl=1'>081287575722</a>
             </div>
 
         </div>
@@ -508,16 +537,16 @@
 
 
     <script>
-        // 🔴🔴🔴 PENTING: GANTI DENGAN URL APPS SCRIPT ANDا 🔴🔴🔴
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRnmOOHc2LpkIlLlQt_PVcVrBoJymZ8T8YzTUdBvuw8aq73FfFH_frF8DBpC6eXs8Fng/exec"; 
-        // 🔴🔴🔴 تأكد من نشر هذا الرابط بشكل صحيح! 🔴🔴🔴
-
-        // -----------------------------------------------------------------------
-        // المتغيرات وعناصر DOM
-        // -----------------------------------------------------------------------
+        // =======================================================================
+        // 🔴🔴🔴 1. الثوابت والمتغيرات الرئيسية 🔴🔴🔴
+        // =======================================================================
+        // 🛑 تغيير الرابط هنا!
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRnmOOHc2LpkIlLlQt_PVcVrBoJymZ8T8YzTUdBvuw8aq73FfFH_frF8DBpC6eXs8Fng/exec";
         const COMMENTS_PER_PAGE = 5;
         let currentPage = 1;
-        let allComments = [];
+        let allComments = []; // لتخزين جميع التعليقات والردود
+
+        // عناصر DOM
         const commentsList = document.getElementById('commentsList');
         const loadingStatus = document.getElementById('loadingStatus');
         const prevBtn = document.getElementById('prevBtn');
@@ -526,101 +555,98 @@
         const cMsg = document.getElementById('cMsg');
         const cStatus = document.getElementById('cStatus');
         const sendComment = document.getElementById('sendComment');
+        const enterBtn = document.getElementById('enterBtn'); // مضافة لسهولة الوصول
+        const cover = document.getElementById('cover'); // مضافة لسهولة الوصول
+        const pages = document.getElementById('pages'); // مضافة لسهولة الوصول
+        const nav = document.getElementById('nav'); // مضافة لسهولة الوصول
+        const music = document.getElementById('music'); // مضافة لسهولة الوصول
+        const d = document.getElementById('d');
+        const h = document.getElementById('h');
+        const m = document.getElementById('m');
+        const s = document.getElementById('s');
 
 
-        // -----------------------------------------------------------------------
-        // وظائف التحكم في واجهة المستخدم (UI)
-        // -----------------------------------------------------------------------
+        // =======================================================================
+        // 2. وظائف التحكم في واجهة المستخدم (UI Functions)
+        // =======================================================================
 
-        /* التحكم في اسم الضيف من رابط URL */
-        const guestNameParam = new URLSearchParams(location.search).get('guest') || 'Sara';
-        document.getElementById('guestName').innerText = "Kepada Yth: " + guestNameParam;
+        /* 2.1. تهيئة اسم الضيف وتنظيف الرابط (URL) */
+        function initializeGuestName() {
+            const guestNameParam = new URLSearchParams(location.search).get('guest') || 'Sara';
+            document.getElementById('guestName').innerText = "Kepada Yth: " + guestNameParam;
+            // 🚀 تنظيف شريط العنوان (URL) بعد قراءة اسم المدعو 🚀
+            history.replaceState(null, '', location.pathname + location.hash);
+        }
 
-        /* وظيفة الدخول وتشغيل الموسيقى/الفيديو */
-        enterBtn.onclick = () => {
-            cover.style.display = "none";
-            pages.style.display = "block";
-            nav.style.display = "flex";
-            // تشغيل الموسيقى
-            music.play().catch(e => console.error("Autoplay gagal:", e));
+        /* 2.2. وظيفة الدخول وتشغيل الوسائط */
+        function setupEntryButton() {
+            enterBtn.onclick = () => {
+                cover.style.display = "none";
+                pages.style.display = "block";
+                nav.style.display = "flex";
+                // تشغيل الموسيقى
+                music.play().catch(e => console.error("Autoplay gagal:", e));
 
-            // تشغيل جميع فيديوهات الخلفية
-            document.querySelectorAll('.page-video').forEach(v => v.play());
-        };
-
-        /* وظيفة التنقل بين الأقسام (عند النقر على أيقونات شريط التنقل) */
-        document.querySelectorAll('#nav img').forEach(btn => {
-            btn.onclick = () => document.querySelectorAll('.section')[btn.dataset.go]
-                .scrollIntoView({
-                    behavior: 'smooth'
-                });
-        });
-
-        /* فتح رابط Google Maps عند النقر على صورة الموقع */
-        document.querySelector('.siteImage').onclick = () => {
-            // يجب تحديث هذا الرابط بموقع المناسبة الفعلي
-            window.open('https://maps.app.goo.gl/fipYv9RUQYJmwTDq6','_blank');
-        };
-
-        /* وظيفة العد التنازلي */
-        let targetDate = new Date("2026-09-07T00:00:00").getTime(); // تغيير التاريخ المستهدف هنا
-        setInterval(() => {
-            let diff = targetDate - Date.now();
-            if (diff < 0) diff = 0;
-            d.innerText = Math.floor(diff / 86400000);
-            h.innerText = Math.floor((diff % 86400000) / 3600000);
-            m.innerText = Math.floor((diff % 3600000) / 60000);
-            s.innerText = Math.floor((diff % 60000) / 1000);
-        }, 1000);
-
-        /* وظيفة نسخ رقم الحساب/الهدية */
-        document.querySelectorAll('.copy-box').forEach(box => {
-            box.onclick = () => {
-                navigator.clipboard.writeText(box.dataset.num);
-                box.style.background = "rgba(157,141,105,0.7)";
-                box.querySelector('.copy-text').innerText = 'Disalin!';
-                setTimeout(() => {
-                    box.style.background = "rgba(255,255,255,0.2)";
-                    box.querySelector('.copy-text').innerText = 'Salin';
-                }, 800);
+                // تشغيل جميع فيديوهات الخلفية
+                document.querySelectorAll('.page-video').forEach(v => v.play());
             };
-        });
+        }
 
-        // -----------------------------------------------------------------------
-        // وظيفة تنسيق الوقت والتاريخ (تم الإصلاح لضمان AM/PM والتاريخ الكامل)
-        // -----------------------------------------------------------------------
-        /**
-         * تنسيق التاريخ والوقت ليظهر بتنسيق 12 ساعة مع التاريخ الكامل (مثال: 11/28/2025, 06:13 PM)
-         * @param {string} dateString - تاريخ خام من Google Sheet.
-         * @returns {string} التاريخ والوقت المنسق.
-         */
+        /* 2.3. وظيفة العد التنازلي */
+        function setupCountdown() {
+            let targetDate = new Date("2026-09-07T00:00:00").getTime(); // 🛑 تغيير التاريخ المستهدف هنا!
+            setInterval(() => {
+                let diff = targetDate - Date.now();
+                if (diff < 0) diff = 0;
+                d.innerText = Math.floor(diff / 86400000); // أيام
+                h.innerText = Math.floor((diff % 86400000) / 3600000); // ساعات
+                m.innerText = Math.floor((diff % 3600000) / 60000); // دقائق
+                s.innerText = Math.floor((diff % 60000) / 1000); // ثواني
+            }, 1000);
+        }
+
+        /* 2.4. وظيفة نسخ رقم الحساب/الهدية */
+        function setupCopyBoxes() {
+            document.querySelectorAll('.copy-box').forEach(box => {
+                box.onclick = () => {
+                    navigator.clipboard.writeText(box.dataset.num);
+                    box.style.background = "rgba(157,141,105,0.7)";
+                    box.querySelector('.copy-text').innerText = 'Disalin!';
+                    setTimeout(() => {
+                        box.style.background = "rgba(255,255,255,0.2)";
+                        box.querySelector('.copy-text').innerText = 'Salin';
+                    }, 800);
+                };
+            });
+        }
+
+        /* 2.5. وظيفة تنسيق الوقت والتاريخ (لضمان AM/PM والتاريخ الكامل) */
         function formatCommentTime(dateString) {
             const date = new Date(dateString);
             if (isNaN(date)) {
-                return dateString.split(' ')[1] || dateString; 
+                return dateString.split(' ')[1] || dateString;
             }
-            
-            // 🛑 الإصلاح: استخدام خيارات التنسيق الإنجليزي (en-US) لضمان AM/PM وإظهار التاريخ الكامل
-            const dateTimeOptions = { 
+
+            // استخدام خيارات التنسيق الإنجليزي (en-US) لضمان AM/PM وإظهار التاريخ الكامل
+            const dateTimeOptions = {
                 year: 'numeric',
-                month: '2-digit', // شهر رقمي
-                day: '2-digit',    // يوم رقمي
-                hour: '2-digit',  
-                minute: '2-digit',  
-                hour12: true, // لضمان ظهور AM/PM
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
             };
 
-            // استخدام 'en-US' لضمان AM/PM وفصل التاريخ والوقت بـ ','
             return date.toLocaleString('en-US', dateTimeOptions);
         }
 
 
         // =======================================================================
-        // 🚀 وظائف التعليقات والتواصل مع Google Apps Script 🚀
+        // 3. وظائف التعليقات والتواصل مع Apps Script (Comment Logic)
         // =======================================================================
 
         /**
-         * 1. جلب التعليقات من Google Sheet (GET)
+         * 3.1. جلب التعليقات من Google Sheet (GET)
          */
         async function getCommentsFromSheet() {
             loadingStatus.style.display = 'block';
@@ -634,23 +660,19 @@
 
                 let commentsData = await response.json();
 
-                // تطبيق تنسيق الوقت على كل التعليقات
+                // تهيئة كائن التعليقات مع فرز مسبق (dateObject)
                 allComments = commentsData.map(c => ({
                     id: c.id,
                     name: c.name,
                     status: c.status,
                     msg: c.comment,
-                    // تخزين التاريخ ككائن Date للفرز
-                    dateObject: new Date(c.date),  
-                    // تخزين الوقت المنسق للعرض (بصيغة AM/PM)
-                    time: formatCommentTime(c.date), 
+                    dateObject: new Date(c.date), // لتسهيل الفرز
+                    time: formatCommentTime(c.date), // للعرض
                     parentId: c.replyTo || null,
-                    replyToName: c.replyTo || null
                 }));
 
             } catch (error) {
                 console.error("Gagal mengambil komentar:", error);
-                // رسالة الخطأ الظاهرة في الصورة
                 alert("Gagal memuat komentar. يرجى التأكد من أن Apps Script منشور بشكل صحيح وأن الرابط في ملف HTML هو الأحدث.");
                 allComments = [];
             } finally {
@@ -659,7 +681,7 @@
         }
 
         /**
-         * 2. إضافة تعليق/رد جديد إلى Google Sheet (POST)
+         * 3.2. إضافة تعليق/رد جديد إلى Google Sheet (POST)
          */
         async function addCommentToSheet(data) {
             // تعطيل الأزرار لمنع الإرسال المتعدد
@@ -677,24 +699,25 @@
 
             try {
                 // مود 'no-cors' ضروري للإرسال إلى Apps Script
-                await fetch(APPS_SCRIPT_URL, { 
+                await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', 
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(postData)
                 });
 
-                // *منطق النجاح:* //
+                // مسح الحقول وتحديث القائمة
                 cName.value = "";
                 cMsg.value = "";
                 cStatus.value = "";
-                
-                // جلب وعرض التعليقات الجديدة (يضمن التحديث والترتيب)
+                document.getElementById(`rName-${data.parentId}`).value = "";
+                document.getElementById(`rMsg-${data.parentId}`).value = "";
+
                 await initComments();
 
-                // العودة إلى الصفحة الأولى لعرض التعليق الجديد
+                // العودة إلى الصفحة الأولى لعرض التعليق الجديد (إذا كان تعليقاً رئيسياً)
                 if (!data.parentId) {
                     currentPage = 1;
                 }
@@ -704,33 +727,31 @@
                 alert("Gagal mengirim komentar. Cek Apps Script URL.");
             } finally {
                 sendComment.disabled = false;
-                prevBtn.disabled = false; // إعادة تمكين أزرار التنقل
+                prevBtn.disabled = false;
                 nextBtn.disabled = false;
             }
         }
 
         /**
-         * 3. عرض التعليقات مع ترقيم الصفحات
+         * 3.3. عرض التعليقات مع ترقيم الصفحات (Render Logic)
          */
         function renderComments() {
             commentsList.innerHTML = "";
 
-            // 🛑 الإصلاح: الفرز حسب dateObject تنازلياً (الأحدث أولاً)
+            // 🛑 الفرز: التعليقات الرئيسية (الأحدث أولاً)
             const sortedComments = allComments
                 .sort((a, b) => b.dateObject - a.dateObject);
 
-            // تصفية التعليقات الرئيسية
+            // تصفية التعليقات الرئيسية فقط لترقيم الصفحات
             const mainComments = sortedComments
                 .filter(c => !c.parentId || c.parentId === 'null' || c.parentId === '');
 
             const totalMainComments = mainComments.length;
             const totalPages = Math.ceil(totalMainComments / COMMENTS_PER_PAGE);
 
-            // حساب فهارس البداية والنهاية للصفحة الحالية
             const startIndex = (currentPage - 1) * COMMENTS_PER_PAGE;
             const endIndex = startIndex + COMMENTS_PER_PAGE;
 
-            // التعليقات المراد عرضها في الصفحة الحالية
             const commentsToDisplay = mainComments.slice(startIndex, endIndex);
 
             // --- التحكم في أزرار ترقيم الصفحات ---
@@ -739,16 +760,16 @@
 
             // --- إنشاء عناصر التعليقات ---
             commentsToDisplay.forEach((mainC) => {
+                // جلب الردود وفرزها حسب التوقيت الأصلي تصاعدياً (الأقدم أولاً)
+                const replies = allComments
+                    .filter(r => r.parentId === mainC.id)
+                    .sort((a, b) => a.dateObject - b.dateObject);
+
                 let mainDiv = document.createElement('div');
                 mainDiv.className = "commentItem";
                 mainDiv.id = `comment-${mainC.id}`;
 
-                // جلب الردود المتعلقة بالتعليق الرئيسي (يتم فرزها حسب التوقيت الأصلي تصاعدياً)
-                const replies = allComments
-                    .filter(r => r.parentId === mainC.id)
-                    // الردود تظهر بالترتيب الزمني (الأقدم أولاً)
-                    .sort((a, b) => a.dateObject - b.dateObject); 
-
+                // قالب HTML للتعليق الرئيسي والردود
                 let mainContent = `
                     <div style="direction: ltr; text-align: left;">
                         <b>${mainC.name}</b> (${mainC.status})<br>
@@ -784,7 +805,7 @@
         }
 
         /**
-         * 4. ربط مستمعي الأحداث (لأزرار الردود والصفحات)
+         * 3.4. ربط مستمعي الأحداث الديناميكية (الردود والصفحات)
          */
         function attachEventListeners() {
             // مستمعو أزرار "الرد" (لإظهار/إخفاء نموذج الرد)
@@ -829,16 +850,13 @@
 
                     await addCommentToSheet(replyData);
 
-                    // تنظيف وإخفاء النموذج بعد الإرسال
-                    nameInput.value = "";
-                    msgInput.value = "";
+                    // إخفاء نموذج الرد بعد الإرسال
                     document.getElementById(`replyForm-${parentId}`).style.display = 'none';
                 };
             });
         }
 
-        /**
-         * 5. وظيفة إرسال التعليق الرئيسي (عند النقر على زر "Kirim")
+        /** * 3.5. وظيفة إرسال التعليق الرئيسي (Main Comment Submission)
          */
         sendComment.onclick = async () => {
             let name = cName.value.trim();
@@ -854,13 +872,17 @@
                 name,
                 msg,
                 status: st,
-                parentId: "" // تعليق رئيسي لا يحتوي على parentId
+                parentId: "" // تعليق رئيسي
             };
 
             await addCommentToSheet(mainCommentData);
         };
 
-        /** 🟢 منطق التنقل بين الصفحات 🟢 */
+
+        // =======================================================================
+        // 4. منطق التنقل بين الصفحات (Pagination Logic)
+        // =======================================================================
+
         // زر "السابق"
         prevBtn.onclick = () => {
             if (currentPage > 1) {
@@ -882,19 +904,47 @@
                 commentsList.closest('#commentsWrapper').scrollTo({ top: 0, behavior: 'smooth' });
             }
         };
-        /** ----------------------------- */
+
+
+        // =======================================================================
+        // 5. وظيفة التهيئة الرئيسية (Initialization)
+        // =======================================================================
+        
+        // ربط مستمعي أحداث التنقل في شريط الـ Nav
+        document.querySelectorAll('#nav img').forEach(btn => {
+            btn.onclick = () => document.querySelectorAll('.section')[btn.dataset.go]
+                .scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // فتح رابط Google Maps
+        document.querySelector('.siteImage').onclick = () => {
+            // 🛑 يجب تحديث هذا الرابط بموقع المناسبة الفعلي
+            window.open('https://maps.app.goo.gl/fipYv9RUQYJmwTDq6','_blank');
+        };
 
         /**
-         * 6. وظيفة التهيئة: جلب البيانات وعرضها عند تحميل الصفحة
+         * 5.1. التهيئة: جلب البيانات وعرضها عند تحميل الصفحة
          */
         async function initComments() {
             await getCommentsFromSheet();
             renderComments();
         }
 
-        // بدء عملية التهيئة
-        initComments();
+        /**
+         * 5.2. تشغيل جميع وظائف التهيئة عند تحميل الصفحة
+         */
+        function initializeApp() {
+            initializeGuestName();
+            setupEntryButton();
+            setupCountdown();
+            setupCopyBoxes();
+            initComments(); // تهيئة التعليقات
+        }
+
+        // بدء تشغيل التطبيق
+        initializeApp();
     </script>
 
 </body>
+
 </html>
