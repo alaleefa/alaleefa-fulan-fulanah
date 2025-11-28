@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* 1. الإعدادات الأساسية وإعادة التعيين */
+        /* 1. الإعدادات الأساسية وإعادة التعييت */
         * {
             margin: 0;
             padding: 0;
@@ -371,15 +371,16 @@
             gap: 10px;
         }
 
-        /* 9. تذييل الصفحة (Footer) - تم التعديل لإعادة الحجم والشكل الأصلي */
+        /* 9. تذييل الصفحة (Footer) - تم التعديل لإعادته لشكله الأصلي (صورة 4) */
         #pageFooter {
             width: 100%;
-            position: relative; /* تغيير من absolute إلى relative لإعادة التدفق الطبيعي */
-            bottom: auto;       /* إزالة التثبيت في الأسفل */
-            padding: 15px 0 50px 0; /* زيادة padding في الأسفل لترك مسافة */
+            position: absolute; /* 🛑 العودة إلى absolute لتثبيته في أسفل الشاشة */
+            bottom: 50px;      /* 🛑 وضع مسافة من الأسفل */
+            left: 0;
+            padding: 10px 0;   /* تقليل padding ليعود شريطاً ضيقاً */
             text-align: center;
             font-size: 15px;
-            background: #1e1f0d; /* نفس خلفية الجسم */
+            background: rgba(0, 0, 0, 0.4); /* خلفية شفافة / داكنة */
             color: #aaa;
             z-index: 100;
         }
@@ -507,7 +508,7 @@
 
 
     <script>
-        // 🔴🔴🔴 PENTING: GANTI DENGAN URL APPS SCRIPT ANDA 🔴🔴🔴
+        // 🔴🔴🔴 PENTING: GANTI DENGAN URL APPS SCRIPT ANDا 🔴🔴🔴
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_NRSfltPI_242dDps39RrpJO7ekQuuQVt181DwGiCbrveaKQiXVqu7bc5qnJmmk1XMg/exec"; 
         // 🔴🔴🔴 تأكد من نشر هذا الرابط بشكل صحيح! 🔴🔴🔴
 
@@ -586,10 +587,10 @@
         });
 
         // -----------------------------------------------------------------------
-        // وظيفة تنسيق الوقت والتاريخ (تم التعديل لضمان AM/PM فقط)
+        // وظيفة تنسيق الوقت والتاريخ (تم الإصلاح لضمان AM/PM والتاريخ الكامل)
         // -----------------------------------------------------------------------
         /**
-         * تنسيق التاريخ والوقت ليظهر بتنسيق 12 ساعة (مثال: 11/28/2025, 06:13 PM)
+         * تنسيق التاريخ والوقت ليظهر بتنسيق 12 ساعة مع التاريخ الكامل (مثال: 11/28/2025, 06:13 PM)
          * @param {string} dateString - تاريخ خام من Google Sheet.
          * @returns {string} التاريخ والوقت المنسق.
          */
@@ -599,17 +600,17 @@
                 return dateString.split(' ')[1] || dateString; 
             }
             
-            // استخدام خيارات التنسيق الإنجليزي (en-US) لضمان AM/PM وإزالة الثواني
+            // 🛑 الإصلاح: استخدام خيارات التنسيق الإنجليزي (en-US) لضمان AM/PM وإظهار التاريخ الكامل
             const dateTimeOptions = { 
                 year: 'numeric',
-                month: 'numeric',
-                day: 'numeric',
-                hour: '2-digit', 
-                minute: '2-digit', 
-                hour12: true,
+                month: '2-digit', // شهر رقمي
+                day: '2-digit',    // يوم رقمي
+                hour: '2-digit',  
+                minute: '2-digit',  
+                hour12: true, // لضمان ظهور AM/PM
             };
 
-            // استخدام 'en-US' لضمان AM/PM
+            // استخدام 'en-US' لضمان AM/PM وفصل التاريخ والوقت بـ ','
             return date.toLocaleString('en-US', dateTimeOptions);
         }
 
@@ -640,7 +641,7 @@
                     status: c.status,
                     msg: c.comment,
                     // تخزين التاريخ ككائن Date للفرز
-                    dateObject: new Date(c.date), 
+                    dateObject: new Date(c.date),  
                     // تخزين الوقت المنسق للعرض (بصيغة AM/PM)
                     time: formatCommentTime(c.date), 
                     parentId: c.replyTo || null,
@@ -649,6 +650,7 @@
 
             } catch (error) {
                 console.error("Gagal mengambil komentar:", error);
+                // رسالة الخطأ الظاهرة في الصورة
                 alert("Gagal memuat komentar. يرجى التأكد من أن Apps Script منشور بشكل صحيح وأن الرابط في ملف HTML هو الأحدث.");
                 allComments = [];
             } finally {
@@ -674,7 +676,7 @@
             };
 
             try {
-                // ملاحظة: مود 'no-cors' يمنع قراءة الاستجابة، لكنه ضروري للإرسال إلى Apps Script
+                // مود 'no-cors' ضروري للإرسال إلى Apps Script
                 await fetch(APPS_SCRIPT_URL, { 
                     method: 'POST',
                     mode: 'no-cors', 
@@ -689,8 +691,10 @@
                 cMsg.value = "";
                 cStatus.value = "";
                 
+                // جلب وعرض التعليقات الجديدة (يضمن التحديث والترتيب)
                 await initComments();
 
+                // العودة إلى الصفحة الأولى لعرض التعليق الجديد
                 if (!data.parentId) {
                     currentPage = 1;
                 }
@@ -700,6 +704,8 @@
                 alert("Gagal mengirim komentar. Cek Apps Script URL.");
             } finally {
                 sendComment.disabled = false;
+                prevBtn.disabled = false; // إعادة تمكين أزرار التنقل
+                nextBtn.disabled = false;
             }
         }
 
@@ -709,7 +715,7 @@
         function renderComments() {
             commentsList.innerHTML = "";
 
-            // 🛑 الفرز حسب dateObject تنازلياً (الأحدث أولاً)
+            // 🛑 الإصلاح: الفرز حسب dateObject تنازلياً (الأحدث أولاً)
             const sortedComments = allComments
                 .sort((a, b) => b.dateObject - a.dateObject);
 
@@ -738,8 +744,9 @@
                 mainDiv.id = `comment-${mainC.id}`;
 
                 // جلب الردود المتعلقة بالتعليق الرئيسي (يتم فرزها حسب التوقيت الأصلي تصاعدياً)
-                const replies = sortedComments
+                const replies = allComments
                     .filter(r => r.parentId === mainC.id)
+                    // الردود تظهر بالترتيب الزمني (الأقدم أولاً)
                     .sort((a, b) => a.dateObject - b.dateObject); 
 
                 let mainContent = `
