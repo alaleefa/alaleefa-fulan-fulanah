@@ -574,8 +574,8 @@
         function initializeGuestName() {
             const guestNameParam = new URLSearchParams(location.search).get('guest') || 'Sara';
             document.getElementById('guestName').innerText = "Kepada Yth: " + guestNameParam;
-            // 🚀 تنظيف شريط العنوان (URL) بعد قراءة اسم المدعو 🚀
-            history.replaceState(null, '', location.pathname + location.hash);
+            // 🚀 تم حذف سطر history.replaceState لضمان بقاء الاسم في الـ URL عند تحديث الصفحة 🚀
+            // history.replaceState(null, '', location.pathname + location.hash); // هذا السطر تم تعطيله/حذفه
         }
 
         /* 2.2. وظيفة الدخول وتشغيل الوسائط */
@@ -712,8 +712,11 @@
                 cName.value = "";
                 cMsg.value = "";
                 cStatus.value = "";
-                document.getElementById(`rName-${data.parentId}`).value = "";
-                document.getElementById(`rMsg-${data.parentId}`).value = "";
+                // يجب مسح حقول الردود في حالة الإرسال الناجح
+                const replyNameInput = document.getElementById(`rName-${data.parentId}`);
+                const replyMsgInput = document.getElementById(`rMsg-${data.parentId}`);
+                if (replyNameInput) replyNameInput.value = "";
+                if (replyMsgInput) replyMsgInput.value = "";
 
                 await initComments();
 
@@ -837,7 +840,7 @@
                     let msg = msgInput.value.trim();
 
                     if (!name || !msg) {
-                        alert("Harap masukkan Nama dan Komen untuk membalas.");
+                        alert("Harap masukkan Nama dan Komen untuk membalاس.");
                         return;
                     }
 
