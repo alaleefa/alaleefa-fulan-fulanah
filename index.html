@@ -511,7 +511,7 @@
         // 🔴🔴🔴 PENTING: GANTI DENGAN URL APPS SCRIPT ANDA 🔴🔴🔴
         // يجب تحديث هذا الرابط برابط Apps Script الذي قمت بنشره
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_NRSfltPI_242dDps39RrpJO7ekQuuQVt181DwGiCbrveaKQiXVqu7bc5qnJmmk1XMg/exec"; 
-        // 🔴🔴🔴 PASTIKAN ANDA MENGGANTI INI 🔴🔴🔴
+        // 🔴🔴🔴 PASTIKAN ANDA مراجعة هذا الرابط 🔴🔴🔴
 
         // -----------------------------------------------------------------------
         // المتغيرات وعناصر DOM
@@ -588,27 +588,28 @@
         });
 
         // -----------------------------------------------------------------------
-        // وظيفة تنسيق الوقت والتاريخ (التعديل المطلوب)
+        // وظيفة تنسيق الوقت والتاريخ (التعديل إلى AM/PM)
         // -----------------------------------------------------------------------
         /**
-         * تنسيق التاريخ والوقت ليظهر بتنسيق 24 ساعة (مثال: 13:45)
+         * تنسيق التاريخ والوقت ليظهر بتنسيق 12 ساعة (مثال: 01:45 PM)
          * @param {string} dateString - تاريخ خام من Google Sheet.
-         * @returns {string} التاريخ والوقت المنسق.
+         * @returns {string} الوقت المنسق (HH:MM AM/PM).
          */
         function formatCommentTime(dateString) {
             const date = new Date(dateString);
             if (isNaN(date)) {
-                return dateString;
+                // في حالة فشل التحليل، نحاول إظهار جزء الوقت إن وجد
+                return dateString.split(' ')[1] || dateString; 
             }
             
-            // 🛑 التعديل الجديد: استخدام تنسيق 24 ساعة (Hour: 2-digit, Minute: 2-digit, hour12: false)
+            // 🛑 التعديل الجديد: استخدام تنسيق 12 ساعة (AM/PM) 
             const timeOptions = { 
                 hour: '2-digit', 
                 minute: '2-digit', 
-                hour12: false 
+                hour12: true 
             };
             
-            // استخدام toLocaleTimeString() مع 'en-US' (أو أي لغة) لتطبيق الـ options بشكل موثوق
+            // نستخدم 'en-US' لضمان تطبيق تنسيق 12 ساعة (AM/PM)
             return date.toLocaleTimeString('en-US', timeOptions);
         }
 
@@ -632,20 +633,21 @@
 
                 let commentsData = await response.json();
 
-                // إعادة هيكلة البيانات
+                // تطبيق تنسيق الوقت على كل التعليقات
                 allComments = commentsData.map(c => ({
                     id: c.id,
                     name: c.name,
                     status: c.status,
                     msg: c.comment,
-                    time: formatCommentTime(c.date), // تطبيق تنسيق الوقت الجديد
+                    // نمرر التاريخ الخام إلى الدالة formatCommentTime لتنسيقه
+                    time: formatCommentTime(c.date), 
                     parentId: c.replyTo || null,
                     replyToName: c.replyTo || null
                 }));
 
             } catch (error) {
                 console.error("Gagal mengambil komentar:", error);
-                alert("Gagal memuat komentar. Cek koneksi atau Apps Script URL Anda.");
+                alert("Gagal memuat komentar. يرجى التأكد من أن Apps Script يعيد تنسيق تاريخ صالح (مثل 2024/01/01 13:00).");
                 allComments = [];
             } finally {
                 loadingStatus.style.display = 'none';
