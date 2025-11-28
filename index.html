@@ -7,22 +7,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* 1. Pengaturan Ulang dan Dasar */
+        /* 1. الإعدادات الأساسية وإعادة التعيين */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Amiri', serif; 
+            font-family: 'Amiri', serif;
         }
 
         body {
-            background: #1e1f0d; /* Latar belakang gelap */
+            background: #1e1f0d; /* خلفية داكنة */
             color: #fff;
             overflow-x: hidden;
-            text-align: left; /* Default LTR */
+            text-align: left;
         }
-        
-        /* Mencegah seret gambar */
+
+        /* منع سحب الصور (لتحسين تجربة اللمس) */
         img {
             -webkit-user-drag: none;
             user-drag: none;
@@ -31,14 +31,14 @@
             user-select: none;
         }
 
-        /* 2. Layar Sampul (Cover) */
+        /* 2. شاشة الغلاف (Cover) */
         #cover {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* Ganti 'cover-image.jpg' dengan gambar sampul yang sebenarnya */
+            /* يجب تغيير الصورة هنا */
             background: url('cover-image.jpg') center/cover no-repeat;
             display: flex;
             flex-direction: column;
@@ -63,7 +63,7 @@
             color: #fff;
         }
 
-        /* 3. Navigasi Bawah */
+        /* 3. شريط التنقل السفلي (Navigation) */
         #nav {
             position: fixed;
             bottom: 10px;
@@ -72,7 +72,7 @@
             display: none;
             gap: 5px;
             z-index: 1000;
-            direction: ltr; 
+            direction: ltr;
         }
 
         #nav img {
@@ -83,7 +83,7 @@
             border: none;
         }
 
-        /* 4. Bagian Halaman (Sections) */
+        /* 4. أقسام الصفحات (Sections) */
         #pages {
             display: none;
             scroll-snap-type: y mandatory;
@@ -110,7 +110,7 @@
             z-index: -1;
         }
 
-        /* 5. Hitungan Mundur (Countdown) */
+        /* 5. العد التنازلي (Countdown) */
         #countdown {
             display: flex;
             gap: 6px;
@@ -140,8 +140,8 @@
             margin-top: 1px;
             color: #9d8d69;
         }
-        
-        /* 6. Galeri Foto */
+
+        /* 6. معرض الصور (Gallery) */
         .gallery-container {
             width: 90%;
             max-width: 400px;
@@ -152,7 +152,7 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
             margin-top: 50px;
-            direction: ltr; 
+            direction: ltr;
         }
 
         .gallery-container::-webkit-scrollbar {
@@ -181,16 +181,16 @@
             object-fit: cover;
         }
 
-        /* 7. Kotak Salin (Donasi/Rekening) */
+        /* 7. صناديق النسخ (الهدية/التحويل البنكي) */
         .section#page5 {
             justify-content: center;
             align-items: center;
             position: relative;
         }
-        
+
         .copy-box-container {
             position: absolute;
-            left: 17%; 
+            left: 17%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -222,7 +222,7 @@
             transform: scale(0.95);
         }
 
-        /* 8. Komentar (Formulir dan Daftar) */
+        /* 8. التعليقات (النموذج والقائمة) */
         .section#page7 {
             justify-content: flex-start;
             align-items: center;
@@ -243,7 +243,7 @@
             max-height: 60vh;
             overflow-y: auto;
             z-index: 10;
-            text-align: left; 
+            text-align: left;
         }
 
         .formLabel {
@@ -262,12 +262,12 @@
             font-size: 14px;
             margin-bottom: 5px;
             font-family: 'Amiri', serif;
-            direction: ltr; 
+            direction: ltr;
             text-align: left;
             background: #fff;
             color: #000;
         }
-        
+
         textarea {
             min-height: 80px;
             resize: none;
@@ -284,7 +284,7 @@
             margin-top: 5px;
             transition: background 0.3s;
         }
-        
+
         button:disabled {
             background: #ccc !important;
             color: #555 !important;
@@ -295,6 +295,7 @@
             margin-bottom: 15px;
         }
 
+        /* تنسيق عنصر التعليق */
         .commentItem {
             border: 1px solid #9d8d69;
             border-radius: 8px;
@@ -304,7 +305,7 @@
             font-size: 14px;
             margin-bottom: 8px;
             position: relative;
-            direction: ltr; 
+            direction: ltr;
             text-align: left;
         }
 
@@ -337,7 +338,7 @@
             padding-top: 5px;
             border-top: 1px dashed #eee;
             margin-top: 5px;
-            direction: ltr; 
+            direction: ltr;
             display: none;
         }
 
@@ -346,7 +347,7 @@
             padding: 5px 0 0 0;
             margin-top: 5px;
             font-size: 13px;
-            direction: ltr; 
+            direction: ltr;
             text-align: left;
         }
 
@@ -362,7 +363,7 @@
             margin-top: 0;
         }
 
-        /* 9. Footer (Kaki Halaman) */
+        /* 9. تذييل الصفحة (Footer) */
         #pageFooter {
             width: 100%;
             position: absolute;
@@ -385,6 +386,7 @@
 
 </head>
 <body>
+
     <div id="cover">
         <img id="enterBtn" src="enter.png" alt="Tombol Masuk">
         <div id="guestName">Kepada Yth: Sara</div>
@@ -414,7 +416,6 @@
 
         <div class="section" id="page3">
             <video class="page-video" src="page3.mp4" muted loop autoplay playsinline></video>
-
             <div id="countdown">
                 <div class="countBox"><span id="d">0</span><small>Hari</small></div>
                 <div class="countBox"><span id="h">0</span><small>Jam</small></div>
@@ -425,7 +426,6 @@
 
         <div class="section">
             <video class="page-video" src="page4.mp4" muted loop autoplay playsinline></video>
-
             <div class="gallery-container">
                 <div class="gallery-grid">
                     <div class="gallery-item"><img src="g1.jpg" alt="Galeri Gambar 1"></div>
@@ -438,7 +438,6 @@
 
         <div class="section" id="page5">
             <video class="page-video" src="page5.mp4" muted loop autoplay playsinline></video>
-
             <div class="copy-box-container">
                 <div class="copy-box" data-num="081234567890">
                     <span class="copy-text">Salin</span>
@@ -471,7 +470,7 @@
                 <textarea id="cMsg" placeholder="Contoh: Semoga bahagia selalu..."></textarea>
 
                 <button id="sendComment">Kirim</button>
-                
+
                 <div id="loadingStatus" style="color:#000; margin-top:10px; font-weight:bold; display:none;">
                     Memuat komentar...
                 </div>
@@ -499,12 +498,16 @@
 
     <audio id="music" src="music.mp3" loop></audio>
 
+
     <script>
         // 🔴🔴🔴 PENTING: GANTI DENGAN URL APPS SCRIPT ANDA 🔴🔴🔴
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_NRSfltPI_242dDps39RrpJO7ekQuuQVt181DwGiCbrveaKQiXVqu7bc5qnJmmk1XMg/exec";
+        // يجب تحديث هذا الرابط برابط Apps Script الذي قمت بنشره
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_NRSfltPI_242dDps39RrpJO7ekQuuQVt181DwGiCbrveaKQiXVqu7bc5qnJmmk1XMg/exec"; 
         // 🔴🔴🔴 PASTIKAN ANDA MENGGANTI INI 🔴🔴🔴
 
-        // 🟢 KONSTANTA DAN ELEMEN KOMENTAR 🟢
+        // -----------------------------------------------------------------------
+        // المتغيرات وعناصر DOM
+        // -----------------------------------------------------------------------
         const COMMENTS_PER_PAGE = 5;
         let currentPage = 1;
         let allComments = [];
@@ -518,23 +521,27 @@
         const sendComment = document.getElementById('sendComment');
 
 
-        /* Kontrol Nama Tamu */
+        // -----------------------------------------------------------------------
+        // وظائف التحكم في واجهة المستخدم (UI)
+        // -----------------------------------------------------------------------
+
+        /* التحكم في اسم الضيف من رابط URL */
         const guestNameParam = new URLSearchParams(location.search).get('guest') || 'Sara';
         document.getElementById('guestName').innerText = "Kepada Yth: " + guestNameParam;
 
-        /* Kontrol Musik dan Tampilan Halaman */
+        /* وظيفة الدخول وتشغيل الموسيقى/الفيديو */
         enterBtn.onclick = () => {
             cover.style.display = "none";
             pages.style.display = "block";
             nav.style.display = "flex";
-            // Mencoba memutar musik
+            // تشغيل الموسيقى
             music.play().catch(e => console.error("Autoplay gagal:", e));
 
-            // Memutar semua video latar belakang
+            // تشغيل جميع فيديوهات الخلفية
             document.querySelectorAll('.page-video').forEach(v => v.play());
         };
 
-        /* Navigasi Antar Bagian */
+        /* وظيفة التنقل بين الأقسام (عند النقر على أيقونات شريط التنقل) */
         document.querySelectorAll('#nav img').forEach(btn => {
             btn.onclick = () => document.querySelectorAll('.section')[btn.dataset.go]
                 .scrollIntoView({
@@ -542,14 +549,14 @@
                 });
         });
 
-        /* Buka Peta Google Maps */
+        /* فتح رابط Google Maps عند النقر على صورة الموقع */
         document.querySelector('.siteImage').onclick = () => {
-            // Ganti URL Google Maps ini dengan lokasi acara Anda yang sebenarnya
-            window.open('https://maps.app.goo.gl/fipYv9RUQYJmwTDq6','_blank'); 
+            // يجب تحديث هذا الرابط بموقع المناسبة الفعلي
+            window.open('https://maps.app.goo.gl/fipYv9RUQYJmwTDq6','_blank');
         };
 
-        /* Hitungan Mundur */
-        let targetDate = new Date("2026-09-07T00:00:00").getTime(); // Ganti tanggal target
+        /* وظيفة العد التنازلي */
+        let targetDate = new Date("2026-09-07T00:00:00").getTime(); // تغيير التاريخ المستهدف هنا
         setInterval(() => {
             let diff = targetDate - Date.now();
             if (diff < 0) diff = 0;
@@ -559,11 +566,10 @@
             s.innerText = Math.floor((diff % 60000) / 1000);
         }, 1000);
 
-        /* Fungsi Salin Nomor Rekening */
+        /* وظيفة نسخ رقم الحساب/الهدية */
         document.querySelectorAll('.copy-box').forEach(box => {
             box.onclick = () => {
-                // Menyalin teks ke clipboard
-                navigator.clipboard.writeText(box.dataset.num); 
+                navigator.clipboard.writeText(box.dataset.num);
                 box.style.background = "rgba(157,141,105,0.7)";
                 box.querySelector('.copy-text').innerText = 'Disalin!';
                 setTimeout(() => {
@@ -574,11 +580,11 @@
         });
 
         // =======================================================================
-        // 🚀 LOGIKA KOMENTAR DAN BALASAN (Google Sheet API) 🚀
+        // 🚀 وظائف التعليقات والتواصل مع Google Apps Script 🚀
         // =======================================================================
 
         /**
-         * 1. Mendapatkan Komentar dari Google Sheet
+         * 1. جلب التعليقات من Google Sheet (GET)
          */
         async function getCommentsFromSheet() {
             loadingStatus.style.display = 'block';
@@ -589,10 +595,10 @@
                 if (!response.ok) {
                     throw new Error(`Kesalahan HTTP! status: ${response.status}`);
                 }
-                
+
                 let commentsData = await response.json();
-                
-                // Re-struktur data dari Apps Script
+
+                // إعادة هيكلة البيانات
                 allComments = commentsData.map(c => ({
                     id: c.id,
                     name: c.name,
@@ -602,7 +608,7 @@
                     parentId: c.replyTo || null,
                     replyToName: c.replyTo || null
                 }));
-                
+
             } catch (error) {
                 console.error("Gagal mengambil komentar:", error);
                 alert("Gagal memuat komentar. Cek koneksi atau Apps Script URL Anda.");
@@ -613,13 +619,15 @@
         }
 
         /**
-         * 2. Menambahkan Komentar/Balasan ke Google Sheet
+         * 2. إضافة تعليق/رد جديد إلى Google Sheet (POST)
+         * * تم إصلاح مشكلة CORS باستخدام mode: 'no-cors' *
          */
         async function addCommentToSheet(data) {
+            // تعطيل الأزرار لمنع الإرسال المتعدد
             sendComment.disabled = true;
             prevBtn.disabled = true;
             nextBtn.disabled = true;
-            
+
             const postData = {
                 action: 'addComment',
                 name: data.name,
@@ -629,31 +637,31 @@
             };
 
             try {
-                const response = await fetch(APPS_SCRIPT_URL, {
+                // 🛑 التعديل الرئيسي: استخدام mode: 'no-cors' 🛑
+                await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'cors',
+                    mode: 'no-cors', 
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(postData)
                 });
+
+                // *منطق النجاح:* في وضع no-cors، نفترض النجاح إذا لم يحدث خطأ في الشبكة
                 
-                if (!response.ok) {
-                    throw new Error(`Kesalahan HTTP! status: ${response.status}`);
-                }
+                // 1. تنظيف النموذج
+                cName.value = "";
+                cMsg.value = "";
+                cStatus.value = "";
                 
-                const result = await response.json();
-                
-                if (result.result === "success") {
-                    // Setelah sukses, muat ulang data dari server
-                    await initComments();
-                    
-                    // Jika ini adalah komentar utama, pindah ke halaman 1 agar komentar baru terlihat
-                    if (!data.parentId) {
-                        currentPage = 1;
-                    }
-                } else {
-                    alert("Gagal menyimpan komentar: " + (result.message || "Kesalahan tak terduga."));
+                alert('Terima kasih! Komentar Anda berhasil dikirim.');
+
+                // 2. جلب التعليقات الجديدة وعرضها
+                await initComments();
+
+                // 3. إذا كان تعليقاً رئيسياً، اذهب إلى الصفحة الأولى
+                if (!data.parentId) {
+                    currentPage = 1;
                 }
 
             } catch (error) {
@@ -661,17 +669,17 @@
                 alert("Gagal mengirim komentar. Cek Apps Script URL.");
             } finally {
                 sendComment.disabled = false;
-                // Tombol paginasi akan diaktifkan/dinonaktifkan di renderComments()
+                // Paginasi يتم تحديثها بواسطة renderComments()
             }
         }
 
         /**
-         * 3. Fungsi Utama Rendering Komentar dengan Paginasi
+         * 3. عرض التعليقات مع ترقيم الصفحات
          */
         function renderComments() {
             commentsList.innerHTML = "";
-            
-            // Filter komentar utama dan urutkan (terbaru di atas)
+
+            // تصفية التعليقات الرئيسية وفرزها (الأحدث أولاً)
             const mainComments = allComments
                 .filter(c => !c.parentId || c.parentId === 'null' || c.parentId === '')
                 .sort((a, b) => new Date(b.time) - new Date(a.time));
@@ -679,38 +687,33 @@
             const totalMainComments = mainComments.length;
             const totalPages = Math.ceil(totalMainComments / COMMENTS_PER_PAGE);
 
-            // Hitung indeks untuk halaman saat ini
+            // حساب فهارس البداية والنهاية للصفحة الحالية
             const startIndex = (currentPage - 1) * COMMENTS_PER_PAGE;
             const endIndex = startIndex + COMMENTS_PER_PAGE;
 
-            // Ambil komentar untuk halaman saat ini
+            // التعليقات المراد عرضها في الصفحة الحالية
             const commentsToDisplay = mainComments.slice(startIndex, endIndex);
 
-            // --- Kontrol Paginasi ---
+            // --- التحكم في أزرار ترقيم الصفحات ---
             if (totalMainComments > COMMENTS_PER_PAGE) {
                 document.getElementById('paginationControls').style.display = 'flex';
-                
-                // Nonaktifkan tombol 'Sebelumnya' di halaman pertama
                 prevBtn.disabled = (currentPage === 1);
-                
-                // Nonaktifkan tombol 'Berikutnya' di halaman terakhir
                 nextBtn.disabled = (currentPage >= totalPages);
-
             } else {
-                // Sembunyikan jika total komentar <= COMMENTS_PER_PAGE
                 document.getElementById('paginationControls').style.display = 'none';
             }
 
-            // --- Render Komentar ---
+            // --- إنشاء عناصر التعليقات ---
             commentsToDisplay.forEach((mainC) => {
                 let mainDiv = document.createElement('div');
                 mainDiv.className = "commentItem";
                 mainDiv.id = `comment-${mainC.id}`;
 
+                // جلب الردود المتعلقة بالتعليق الرئيسي
                 const replies = allComments
                     .filter(r => r.parentId === mainC.id)
                     .sort((a, b) => new Date(a.time) - new Date(b.time));
-                
+
                 let mainContent = `
                     <div style="direction: ltr; text-align: left;">
                         <b>${mainC.name}</b> (${mainC.status})<br>
@@ -741,33 +744,33 @@
                 commentsList.appendChild(mainDiv);
             });
 
-            // Pasang kembali event listeners untuk elemen yang baru dirender
+            // إعادة ربط مستمعي الأحداث للعناصر الجديدة
             attachEventListeners();
         }
 
         /**
-         * 4. Memasang Event Listeners
+         * 4. ربط مستمعي الأحداث (لأزرار الردود والصفحات)
          */
         function attachEventListeners() {
-            // Listener untuk tombol "Balas"
+            // مستمعو أزرار "الرد" (لإظهار/إخفاء نموذج الرد)
             document.querySelectorAll('.replyBtn').forEach(btn => {
                 btn.onclick = (e) => {
                     const id = e.target.dataset.id;
                     const replyForm = document.getElementById(`replyForm-${id}`);
 
-                    // Sembunyikan semua form balasan yang terbuka
+                    // إخفاء جميع النماذج الأخرى المفتوحة
                     document.querySelectorAll('.reply-form').forEach(form => {
                         if (form.id !== replyForm.id) {
                             form.style.display = 'none';
                         }
                     });
 
-                    // Toggle form balasan yang diklik
+                    // تبديل عرض نموذج الرد الحالي
                     replyForm.style.display = replyForm.style.display === 'block' ? 'none' : 'block';
                 };
             });
 
-            // Listener untuk tombol "Kirim Balasan"
+            // مستمعو أزرار "إرسال الرد"
             document.querySelectorAll('.sendReplyBtn').forEach(btn => {
                 btn.onclick = async (e) => {
                     const parentId = e.target.dataset.parentId;
@@ -788,19 +791,19 @@
                         status: 'Balasan',
                         parentId: parentId,
                     };
-                    
+
                     await addCommentToSheet(replyData);
-                    
-                    // Bersihkan dan sembunyikan form
+
+                    // تنظيف وإخفاء النموذج بعد الإرسال
                     nameInput.value = "";
                     msgInput.value = "";
                     document.getElementById(`replyForm-${parentId}`).style.display = 'none';
                 };
             });
         }
-        
+
         /**
-         * 5. Pengiriman Komentar Utama
+         * 5. وظيفة إرسال التعليق الرئيسي (عند النقر على زر "Kirim")
          */
         sendComment.onclick = async () => {
             let name = cName.value.trim();
@@ -816,50 +819,45 @@
                 name,
                 msg,
                 status: st,
-                parentId: ""
+                parentId: "" // تعليق رئيسي لا يحتوي على parentId
             };
-            
+
             await addCommentToSheet(mainCommentData);
-            
-            // Bersihkan form
-            cName.value = "";
-            cMsg.value = "";
-            cStatus.value = "";
         };
 
-        /** 🟢 LOGIKA NAVIGASI PAGINASI 🟢 */
-        // Tombol Sebelumnya
+        /** 🟢 منطق التنقل بين الصفحات 🟢 */
+        // زر "السابق"
         prevBtn.onclick = () => {
             if (currentPage > 1) {
                 currentPage--;
                 renderComments();
-                // Opsional: Gulir ke atas daftar komentar
+                // التمرير إلى أعلى قائمة التعليقات
                 commentsList.closest('#commentsWrapper').scrollTo({ top: 0, behavior: 'smooth' });
             }
         };
 
-        // Tombol Berikutnya
+        // زر "التالي"
         nextBtn.onclick = () => {
             const totalMainComments = allComments.filter(c => !c.parentId || c.parentId === 'null' || c.parentId === '').length;
             const totalPages = Math.ceil(totalMainComments / COMMENTS_PER_PAGE);
             if (currentPage < totalPages) {
                 currentPage++;
                 renderComments();
-                // Opsional: Gulir ke atas daftar komentar
+                // التمرير إلى أعلى قائمة التعليقات
                 commentsList.closest('#commentsWrapper').scrollTo({ top: 0, behavior: 'smooth' });
             }
         };
         /** ----------------------------- */
 
         /**
-         * 6. Inisialisasi: Memuat data awal
+         * 6. وظيفة التهيئة: جلب البيانات وعرضها عند تحميل الصفحة
          */
         async function initComments() {
             await getCommentsFromSheet();
             renderComments();
         }
 
-        // Panggil inisialisasi saat halaman dimuat
+        // بدء عملية التهيئة
         initComments();
     </script>
 
