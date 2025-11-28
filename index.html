@@ -362,6 +362,14 @@
             text-align: left;
             margin-top: 0;
         }
+        
+        /* إظهار أزرار الترقيم بشكل دائم */
+        #paginationControls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            gap: 10px;
+        }
 
         /* 9. تذييل الصفحة (Footer) */
         #pageFooter {
@@ -475,7 +483,7 @@
                     Memuat komentar...
                 </div>
 
-                <div id="paginationControls" style="display:flex; justify-content:space-between; margin-top:10px; gap:10px;">
+                <div id="paginationControls">
                     <button id="prevBtn" style="flex:1;">
                         < Sebelumnya
                     </button>
@@ -579,6 +587,32 @@
             };
         });
 
+        // -----------------------------------------------------------------------
+        // وظيفة تنسيق الوقت والتاريخ (التعديل المطلوب)
+        // -----------------------------------------------------------------------
+        /**
+         * تنسيق التاريخ والوقت ليظهر بتنسيق 24 ساعة (مثال: 13:45)
+         * @param {string} dateString - تاريخ خام من Google Sheet.
+         * @returns {string} التاريخ والوقت المنسق.
+         */
+        function formatCommentTime(dateString) {
+            const date = new Date(dateString);
+            if (isNaN(date)) {
+                return dateString;
+            }
+            
+            // 🛑 التعديل الجديد: استخدام تنسيق 24 ساعة (Hour: 2-digit, Minute: 2-digit, hour12: false)
+            const timeOptions = { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                hour12: false 
+            };
+            
+            // استخدام toLocaleTimeString() مع 'en-US' (أو أي لغة) لتطبيق الـ options بشكل موثوق
+            return date.toLocaleTimeString('en-US', timeOptions);
+        }
+
+
         // =======================================================================
         // 🚀 وظائف التعليقات والتواصل مع Google Apps Script 🚀
         // =======================================================================
@@ -604,7 +638,7 @@
                     name: c.name,
                     status: c.status,
                     msg: c.comment,
-                    time: c.date,
+                    time: formatCommentTime(c.date), // تطبيق تنسيق الوقت الجديد
                     parentId: c.replyTo || null,
                     replyToName: c.replyTo || null
                 }));
@@ -620,7 +654,6 @@
 
         /**
          * 2. إضافة تعليق/رد جديد إلى Google Sheet (POST)
-         * * تم إصلاح مشكلة CORS باستخدام mode: 'no-cors' *
          */
         async function addCommentToSheet(data) {
             // تعطيل الأزرار لمنع الإرسال المتعدد
@@ -637,7 +670,6 @@
             };
 
             try {
-                // 🛑 التعديل الرئيسي: استخدام mode: 'no-cors' 🛑
                 await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors', 
@@ -647,15 +679,11 @@
                     body: JSON.stringify(postData)
                 });
 
-                // *منطق النجاح:* في وضع no-cors، نفترض النجاح إذا لم يحدث خطأ في الشبكة
-                
-                // 1. تنظيف النموذج
+                // *منطق النجاح:* // 1. تنظيف النموذج
                 cName.value = "";
                 cMsg.value = "";
                 cStatus.value = "";
                 
-                alert('Terima kasih! Komentar Anda berhasil dikirim.');
-
                 // 2. جلب التعليقات الجديدة وعرضها
                 await initComments();
 
@@ -695,13 +723,8 @@
             const commentsToDisplay = mainComments.slice(startIndex, endIndex);
 
             // --- التحكم في أزرار ترقيم الصفحات ---
-            if (totalMainComments > COMMENTS_PER_PAGE) {
-                document.getElementById('paginationControls').style.display = 'flex';
-                prevBtn.disabled = (currentPage === 1);
-                nextBtn.disabled = (currentPage >= totalPages);
-            } else {
-                document.getElementById('paginationControls').style.display = 'none';
-            }
+            prevBtn.disabled = (currentPage === 1);
+            nextBtn.disabled = (currentPage >= totalPages) || (totalMainComments <= COMMENTS_PER_PAGE);
 
             // --- إنشاء عناصر التعليقات ---
             commentsToDisplay.forEach((mainC) => {
