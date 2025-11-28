@@ -7,19 +7,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
+        /* 1. Pengaturan Ulang dan Dasar */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Amiri', serif;
+            font-family: 'Amiri', serif; 
         }
 
         body {
-            background: #1e1f0d;
+            background: #1e1f0d; /* Latar belakang gelap */
             color: #fff;
             overflow-x: hidden;
+            text-align: left; /* Default LTR */
         }
-
+        
+        /* Mencegah seret gambar */
         img {
             -webkit-user-drag: none;
             user-drag: none;
@@ -28,12 +31,14 @@
             user-select: none;
         }
 
+        /* 2. Layar Sampul (Cover) */
         #cover {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            /* Ganti 'cover-image.jpg' dengan gambar sampul yang sebenarnya */
             background: url('cover-image.jpg') center/cover no-repeat;
             display: flex;
             flex-direction: column;
@@ -58,6 +63,7 @@
             color: #fff;
         }
 
+        /* 3. Navigasi Bawah */
         #nav {
             position: fixed;
             bottom: 10px;
@@ -66,6 +72,7 @@
             display: none;
             gap: 5px;
             z-index: 1000;
+            direction: ltr; 
         }
 
         #nav img {
@@ -76,6 +83,7 @@
             border: none;
         }
 
+        /* 4. Bagian Halaman (Sections) */
         #pages {
             display: none;
             scroll-snap-type: y mandatory;
@@ -102,6 +110,7 @@
             z-index: -1;
         }
 
+        /* 5. Hitungan Mundur (Countdown) */
         #countdown {
             display: flex;
             gap: 6px;
@@ -131,7 +140,8 @@
             margin-top: 1px;
             color: #9d8d69;
         }
-
+        
+        /* 6. Galeri Foto */
         .gallery-container {
             width: 90%;
             max-width: 400px;
@@ -142,6 +152,7 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
             margin-top: 50px;
+            direction: ltr; 
         }
 
         .gallery-container::-webkit-scrollbar {
@@ -170,15 +181,16 @@
             object-fit: cover;
         }
 
+        /* 7. Kotak Salin (Donasi/Rekening) */
         .section#page5 {
             justify-content: center;
             align-items: center;
             position: relative;
         }
-
+        
         .copy-box-container {
             position: absolute;
-            left: 17%;
+            left: 17%; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -210,6 +222,7 @@
             transform: scale(0.95);
         }
 
+        /* 8. Komentar (Formulir dan Daftar) */
         .section#page7 {
             justify-content: flex-start;
             align-items: center;
@@ -230,7 +243,7 @@
             max-height: 60vh;
             overflow-y: auto;
             z-index: 10;
-            text-align: left;
+            text-align: left; 
         }
 
         .formLabel {
@@ -241,7 +254,7 @@
 
         input,
         textarea,
-        select { /* Tambahkan select */
+        select {
             width: 100%;
             padding: 8px;
             border-radius: 5px;
@@ -249,12 +262,12 @@
             font-size: 14px;
             margin-bottom: 5px;
             font-family: 'Amiri', serif;
-            direction: ltr;
+            direction: ltr; 
             text-align: left;
-            background: #fff; /* Pastikan background putih */
-            color: #000; /* Pastikan teks hitam */
+            background: #fff;
+            color: #000;
         }
-
+        
         textarea {
             min-height: 80px;
             resize: none;
@@ -279,7 +292,7 @@
         }
 
         #sendComment {
-             margin-bottom: 15px;
+            margin-bottom: 15px;
         }
 
         .commentItem {
@@ -291,7 +304,7 @@
             font-size: 14px;
             margin-bottom: 8px;
             position: relative;
-            direction: ltr;
+            direction: ltr; 
             text-align: left;
         }
 
@@ -324,7 +337,7 @@
             padding-top: 5px;
             border-top: 1px dashed #eee;
             margin-top: 5px;
-            direction: ltr;
+            direction: ltr; 
             display: none;
         }
 
@@ -333,7 +346,7 @@
             padding: 5px 0 0 0;
             margin-top: 5px;
             font-size: 13px;
-            direction: ltr;
+            direction: ltr; 
             text-align: left;
         }
 
@@ -349,6 +362,7 @@
             margin-top: 0;
         }
 
+        /* 9. Footer (Kaki Halaman) */
         #pageFooter {
             width: 100%;
             position: absolute;
@@ -373,8 +387,9 @@
 <body>
     <div id="cover">
         <img id="enterBtn" src="enter.png" alt="Tombol Masuk">
-        <div id="guestName">Nama Tamu: Alia</div>
+        <div id="guestName">Kepada Yth: Sara</div>
     </div>
+
     <div id="nav">
         <img src="icon1.png" data-go="0" alt="Ikon 1">
         <img src="icon2.png" data-go="1" alt="Ikon 2">
@@ -384,6 +399,7 @@
         <img src="icon6.png" data-go="5" alt="Ikon 6">
         <img src="icon7.png" data-go="6" alt="Ikon 7">
     </div>
+
     <div id="pages">
 
         <div class="section">
@@ -393,7 +409,7 @@
         <div class="section" id="page2">
             <video class="page-video" src="page2.mp4" muted loop autoplay playsinline></video>
             <img class="siteImage" src="site.png" style="margin-top:650px;max-width:50%;cursor:pointer;"
-                alt="Peta Lokasi">
+                alt="Gambar Peta Lokasi">
         </div>
 
         <div class="section" id="page3">
@@ -425,10 +441,10 @@
 
             <div class="copy-box-container">
                 <div class="copy-box" data-num="081234567890">
-                    <span class="copy-text">Copy</span>
+                    <span class="copy-text">Salin</span>
                 </div>
                 <div class="copy-box" data-num="085711223344">
-                    <span class="copy-text">Copy</span>
+                    <span class="copy-text">Salin</span>
                 </div>
             </div>
         </div>
@@ -485,32 +501,40 @@
 
     <script>
         // 🔴🔴🔴 PENTING: GANTI DENGAN URL APPS SCRIPT ANDA 🔴🔴🔴
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGwU74Pi_9uz_95K-LEQU5hZ2_vMtmTy-zUZNJ86bTDyZwymN67gPidt3_bqRUoUA/exec";
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwS1a5qidWfzOexrYFiZtB-G8xu2byB9XMhpshSN6lQY6upqD7bYu46PqMsjuVJvMRoQw/exec";
         // 🔴🔴🔴 PASTIKAN ANDA MENGGANTI INI 🔴🔴🔴
 
-        // 🟢 KONSTANTA PAGINASI BARU 🟢
+        // 🟢 KONSTANTA DAN ELEMEN KOMENTAR 🟢
         const COMMENTS_PER_PAGE = 5;
         let currentPage = 1;
+        let allComments = [];
+        const commentsList = document.getElementById('commentsList');
+        const loadingStatus = document.getElementById('loadingStatus');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const cName = document.getElementById('cName');
+        const cMsg = document.getElementById('cMsg');
+        const cStatus = document.getElementById('cStatus');
+        const sendComment = document.getElementById('sendComment');
 
-        document.querySelectorAll('img').forEach(img => {
-            img.oncontextmenu = e => e.preventDefault();
-        });
 
-        /* Guest Name */
-        const guestName = new URLSearchParams(location.search).get('guest') || 'Sara';
-        document.getElementById('guestName').innerText = "Nama Tamu: " + guestName;
+        /* Kontrol Nama Tamu */
+        const guestNameParam = new URLSearchParams(location.search).get('guest') || 'Sara';
+        document.getElementById('guestName').innerText = "Kepada Yth: " + guestNameParam;
 
-        /* Music Control (Always play) */
+        /* Kontrol Musik dan Tampilan Halaman */
         enterBtn.onclick = () => {
             cover.style.display = "none";
             pages.style.display = "block";
             nav.style.display = "flex";
-            music.play().catch(e => console.error("Autoplay failed:", e));
+            // Mencoba memutar musik
+            music.play().catch(e => console.error("Autoplay gagal:", e));
 
+            // Memutar semua video latar belakang
             document.querySelectorAll('.page-video').forEach(v => v.play());
         };
 
-        /* Navigation, Maps, Countdown, Copy Numbers */
+        /* Navigasi Antar Bagian */
         document.querySelectorAll('#nav img').forEach(btn => {
             btn.onclick = () => document.querySelectorAll('.section')[btn.dataset.go]
                 .scrollIntoView({
@@ -518,12 +542,14 @@
                 });
         });
 
+        /* Buka Peta Google Maps */
         document.querySelector('.siteImage').onclick = () => {
             // Ganti URL Google Maps ini dengan lokasi acara Anda yang sebenarnya
-            window.open('https://maps.app.goo.gl/fipYv9RUQYJmwTDq6','_blank');
+            window.open('https://maps.app.goo.gl/fipYv9RUQYJmwTDq6','_blank'); 
         };
 
-        let targetDate = new Date("2026-09-07T00:00:00").getTime();
+        /* Hitungan Mundur */
+        let targetDate = new Date("2026-09-07T00:00:00").getTime(); // Ganti tanggal target
         setInterval(() => {
             let diff = targetDate - Date.now();
             if (diff < 0) diff = 0;
@@ -533,30 +559,26 @@
             s.innerText = Math.floor((diff % 60000) / 1000);
         }, 1000);
 
+        /* Fungsi Salin Nomor Rekening */
         document.querySelectorAll('.copy-box').forEach(box => {
             box.onclick = () => {
-                navigator.clipboard.writeText(box.dataset.num);
+                // Menyalin teks ke clipboard
+                navigator.clipboard.writeText(box.dataset.num); 
                 box.style.background = "rgba(157,141,105,0.7)";
                 box.querySelector('.copy-text').innerText = 'Disalin!';
                 setTimeout(() => {
                     box.style.background = "rgba(255,255,255,0.2)";
-                    box.querySelector('.copy-text').innerText = 'Copy';
+                    box.querySelector('.copy-text').innerText = 'Salin';
                 }, 800);
             };
         });
 
         // =======================================================================
-        // 🚀 LOGIKA KOMENTAR DENGAN PAGINASI 🚀
+        // 🚀 LOGIKA KOMENTAR DAN BALASAN (Google Sheet API) 🚀
         // =======================================================================
-        let allComments = [];
-        const commentsList = document.getElementById('commentsList');
-        const loadingStatus = document.getElementById('loadingStatus');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-
 
         /**
-         * 1. Mendapatkan Komentar dari Google Sheet (Pengganti localStorage.getItem)
+         * 1. Mendapatkan Komentar dari Google Sheet
          */
         async function getCommentsFromSheet() {
             loadingStatus.style.display = 'block';
@@ -570,8 +592,8 @@
                 
                 let commentsData = await response.json();
                 
-                // Mengganti field replyTo dari Apps Script (yang berisi id parent)
-                commentsData = commentsData.map(c => ({
+                // Re-struktur data dari Apps Script
+                allComments = commentsData.map(c => ({
                     id: c.id,
                     name: c.name,
                     status: c.status,
@@ -580,8 +602,6 @@
                     parentId: c.replyTo || null,
                     replyToName: c.replyTo || null
                 }));
-                
-                allComments = commentsData;
                 
             } catch (error) {
                 console.error("Gagal mengambil komentar:", error);
@@ -668,8 +688,7 @@
 
             // --- Kontrol Paginasi ---
             if (totalMainComments > COMMENTS_PER_PAGE) {
-                prevBtn.style.display = 'block';
-                nextBtn.style.display = 'block';
+                document.getElementById('paginationControls').style.display = 'flex';
                 
                 // Nonaktifkan tombol 'Sebelumnya' di halaman pertama
                 prevBtn.disabled = (currentPage === 1);
@@ -679,8 +698,7 @@
 
             } else {
                 // Sembunyikan jika total komentar <= COMMENTS_PER_PAGE
-                prevBtn.style.display = 'none';
-                nextBtn.style.display = 'none';
+                document.getElementById('paginationControls').style.display = 'none';
             }
 
             // --- Render Komentar ---
@@ -753,7 +771,6 @@
             document.querySelectorAll('.sendReplyBtn').forEach(btn => {
                 btn.onclick = async (e) => {
                     const parentId = e.target.dataset.parentId;
-                    const parentName = e.target.dataset.parentName;
                     const nameInput = document.getElementById(`rName-${parentId}`);
                     const msgInput = document.getElementById(`rMsg-${parentId}`);
 
@@ -774,6 +791,7 @@
                     
                     await addCommentToSheet(replyData);
                     
+                    // Bersihkan dan sembunyikan form
                     nameInput.value = "";
                     msgInput.value = "";
                     document.getElementById(`replyForm-${parentId}`).style.display = 'none';
@@ -803,12 +821,14 @@
             
             await addCommentToSheet(mainCommentData);
             
+            // Bersihkan form
             cName.value = "";
             cMsg.value = "";
             cStatus.value = "";
         };
 
         /** 🟢 LOGIKA NAVIGASI PAGINASI 🟢 */
+        // Tombol Sebelumnya
         prevBtn.onclick = () => {
             if (currentPage > 1) {
                 currentPage--;
@@ -818,6 +838,7 @@
             }
         };
 
+        // Tombol Berikutnya
         nextBtn.onclick = () => {
             const totalMainComments = allComments.filter(c => !c.parentId || c.parentId === 'null' || c.parentId === '').length;
             const totalPages = Math.ceil(totalMainComments / COMMENTS_PER_PAGE);
